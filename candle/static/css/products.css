@@ -1,0 +1,180 @@
+/* General Body Styling */
+body {
+    background-color: #f1f4f8;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+
+}
+
+/* Card Styling */
+.card {
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card-img-top {
+    border-radius: 12px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.card-img-top:hover {
+    transform: scale(1.1);
+}
+.btn-custom{
+        background-color: #e6af4b;
+        color: #1a1a1a;
+        border: 0;
+        border-radius: 30px;
+        padding: 12px 24px;
+        font-size: 1rem;
+        font-weight: bold;
+        transition: 0.3s ease-in-out;
+    }
+/* Buttons */
+.btn-primary {
+    background-color: #4CAF50 !important;
+    border: 2px solid black;
+    border-radius: 50px;
+    padding: 12px 18px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+.btn-custom:hover{
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    background: #d8bfbf;
+}
+.btn-primary:hover {
+    font-size: 1.3rem;
+    background-color: #45a049;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Form Styling */
+.form-label {
+    font-weight: 600;
+    color: #555;
+}
+
+.form-select, .form-range {
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
+}
+
+.form-select:hover, .form-range:hover {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+}
+
+/* Price Filter Value */
+#priceValue {
+    font-weight: bold;
+    font-size: 18px;
+    color: #007bff;
+    transition: all 0.3s ease;
+}
+
+#priceValue:hover {
+    color: #0056b3;
+}
+
+/* Filter & Sort Panel */
+.border {
+    border-radius: 12px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+p{
+
+
+}
+.p-3 {
+    padding: 1.5rem;
+}
+
+/* Responsive Grid */
+@media (max-width: 767px) {
+    .card-img-top {
+        height: 180px;
+        object-fit: cover;
+    }
+
+    .btn-primary {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+}
+
+/* Hover Effects for Category Filter and Price */
+.form-select:focus, .form-range:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Hover Effects on Product Cards */
+.product-item:hover .card {
+    transform: scale(1.0);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #007bff;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+
+/* Card Body Styling to use Flexbox */
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; /* Ensures content uses the full card height */
+}
+
+/* Ensuring the product name doesn't overflow */
+.card-title {
+    font-size: 1rem;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Make sure product price section is aligned at the bottom */
+.card-body .card-text {
+    margin-top: auto; /* Pushes the price section to the bottom */
+    font-weight: bold;
+}
+
+/* Uniform Card Height */
+.product-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch; /* Ensures consistent heights */
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}

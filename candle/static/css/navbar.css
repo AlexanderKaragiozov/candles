@@ -1,0 +1,103 @@
+/* Navbar */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    height: 60px;
+
+    display: flex;
+    justify-content: space-between; /* Space for logo and links */
+    align-items: center;
+    /*padding: 10px 20px;*/
+
+    z-index: 1000;
+}
+
+.navbar .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #e6af4b; /* Gold accent */
+    font-family: "Georgia", serif;
+    letter-spacing: 1px;
+
+}
+.logo{
+    margin-left: 20px;
+}
+.navbar .logo a {
+    text-decoration: none;
+    color: inherit; /* Keeps gold accent */
+
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+}
+
+.nav-links li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 8px 16px;
+    transition: 0.3s ease-in-out;
+}
+
+.nav-links li a:hover {
+    color: #e6af4b; /* Gold hover effect */
+}
+
+/* Hamburger menu for mobile view */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+    margin-right: 20px;
+}
+
+.hamburger .line {
+    width: 30px;
+    height: 3px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+/* Mobile Menu - Hidden by default */
+.nav-links {
+    display: flex;
+}
+
+.nav-links.active {
+    display: block;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: rgba(0, 0, 0,0.7) !important;
+    width: 99%;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.nav-links.active li {
+    margin: 15px 0;
+}
+
+@media screen and (max-width: 983px) {
+    .navbar {
+        justify-content: space-between; /* Keep the logo on the left */
+    }
+
+    .nav-links {
+        display: none; /* Hide links by default on small screens */
+        width: 100%;
+    }
+
+    .hamburger {
+        display: flex; /* Show hamburger on mobile */
+    }
+}

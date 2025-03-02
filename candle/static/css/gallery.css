@@ -1,0 +1,22 @@
+/* Ensure images fit properly */
+.gallery-img {
+    width: 100%; /* Ensures it takes full width of the column */
+    height: 300px; /* Keeps all images equal in height */
+    object-fit: cover; /* Ensures images do not stretch */
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Hover Effect */
+.gallery-img:hover {
+    transform: scale(1.10);
+}
+
+/* Make sure columns are evenly spaced */
+.gallery-item {
+    padding: 10px;
+    text-align: center;
+}
+
+/* Bootstrap ensures 3 columns on medium screens (col-md-4) */
+/* 2 columns on smaller screens (col-sm-6), 1 column on mobile */

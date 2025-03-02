@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <!-- Meta Pixel Code -->
+
+<!-- End Meta Pixel Code -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Candle Store</title>
+    <link rel="icon" type="image/ico" href="{% static 'logo.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/gallery.css' %}">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '667508889037580');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=667508889037580&ev=PageView&noscript=1"
+/></noscript>
+</head>
+
+<body>
+{% include 'navbar.html' %}
+    <!-- Hero Section -->
+<section class="hero d-flex align-items-center justify-content-center text-center" style="background-image: url('{{ MEDIA_URL }}hero_section.jpg');">
+    <div class="container">
+        <h1 class="display-3 fw-bold text-light">АРОМАТНИ СВЕЩИЧКИ ЗА ТВОЯ ДОМ</h1>
+        <p class="lead text-light opacity-75">
+            Изработени ръчно с грижа и любов.
+        </p>
+        <br>
+        <a href="#most_sold" class="btn-custom btn-lg mt-3">Разгледай сега</a>
+    </div>
+</section>
+<div class="container py-5"><h2
+id="most_sold"
+ class="text-center md-4 ">🔥НАЙ-ПРОДАВАНИ🔥</h2>
+   <div id="mostSold" class="row">
+    {% for candle in most_ordered %}
+    <div class="col-md-4">
+        <div class="product text-center">
+            <img class="gallery-img" style="width: 300px;margin-top: 20px" src="../media/{{ candle.image }}" alt="{{ candle.name }}" data-id="{{ candle.id }}" data-name="{{ candle.name }}" data-price="{{ candle.price }}" data-description="{{ candle.description }}" data-image="../media/{{ candle.image }}">
+            <h5 class="mt-3">{{ candle.name }}</h5>
+            <p style="font-size: 20px; font-weight: bold">{{ candle.price }} ЛВ.</p>
+            <div class="button-container">
+                <form action="{% url 'view_product' candle.id %}" method="get">
+                    {% csrf_token %}
+                    <button style="background-color: #515151; color: white" class="btn-custom">Виж</button>
+                </form>
+
+
+
+                <form action="{% url 'fast_buy' candle.id %}" method="POST" class="add-to-cart-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="quantity" value="1">
+                    <button type="submit" class="btn-custom">КУПИ</button>
+                </form>
+
+
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<div class="container py-5"><h2 id="last_added" class="text-center md-4">🆕ПОСЛЕДНО ДОБАВЕНИ🆕</h2>
+   <div id="lastAdded" class="row">
+    {% for candle in candles %}
+    <div class="col-md-4">
+        <div class="product text-center">
+            <img class="gallery-img" style="width: 300px;margin-top: 20px" src="../media/{{ candle.image }}" alt="{{ candle.name }}" data-id="{{ candle.id }}" data-name="{{ candle.name }}" data-price="{{ candle.price }}" data-description="{{ candle.description }}" data-image="../media/{{ candle.image }}">
+            <h5 class="mt-3">{{ candle.name }}</h5>
+            <p style="font-size: 20px; font-weight: bold">{{ candle.price }} ЛВ.</p>
+            <div class="button-container">
+                <form action="{% url 'view_product' candle.id %}" method="get">
+                    {% csrf_token %}
+                    <button style="background-color: #515151; color: white" class="btn-custom">Виж</button>
+                </form>
+
+
+
+                <form action="{% url 'fast_buy' candle.id %}" method="POST" class="add-to-cart-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="quantity" value="1">
+                    <button type="submit" class="btn-custom">КУПИ</button>
+                </form>
+
+
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<div class="container py-5"><h2
+id="promos"
+ class="text-center md-4 ">🏷️ПОРМOЦИИ🏷️</h2>
+   <div id="mostSold" class="row">
+    {% for candle in promotions %}
+    <div class="col-md-4">
+        <div class="product text-center">
+            <img class="gallery-img" style="width: 300px;margin-top: 20px" src="../media/{{ candle.image }}" alt="{{ candle.name }}" data-id="{{ candle.id }}" data-name="{{ candle.name }}" data-price="{{ candle.price }}" data-description="{{ candle.description }}" data-image="../media/{{ candle.image }}">
+            <h5 class="mt-3">{{ candle.name }}</h5>
+            <div class="price-container">
+    <p class="old-price">{{ candle.price }} ЛВ.</p>
+    <span class="arrow">→</span>
+    <p class="new-price">{{ candle.promotion_price }} ЛВ.</p>
+</div>
+            <div class="button-container">
+                <form action="{% url 'view_product' candle.id %}" method="get">
+                    {% csrf_token %}
+                    <button style="background-color: #515151; color: white" class="btn-custom">Виж</button>
+                </form>
+
+
+
+                <form action="{% url 'fast_buy' candle.id %}" method="POST" class="add-to-cart-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="quantity" value="1">
+                    <button type="submit" class="btn-custom">КУПИ</button>
+                </form>
+
+
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<div class="browse-container">
+    <form action="{% url 'products' %}">
+        <button style="background: #333333;border: white 2px solid;color: white;" class="browse-button">🔍РАЗГЛЕДАЙ ВСИЧКИ ПРОДУКТИ</button>
+    </form>
+</div>
+
+
+
+
+
+<!-- Benefits Section -->
+<div class="container py-5" id="benefits">
+    <h2 class="text-center mb-4">Защо да изберете нашите свещи?</h2>
+    <div class="row text-center">
+        <div class="col-md-4">
+            <div class="benefit-item p-4">
+                <img src="https://cdn-icons-png.flaticon.com/128/6857/6857847.png" alt="Quality" class="mb-3" style="width:60px;">
+                <h5>Висококачествени съставки</h5>
+                <p>Използваме само натурални восъци и висококачествени ароматни масла за безопасна и дълготрайна наслада.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="benefit-item p-4">
+                <img src="https://cdn-icons-png.flaticon.com/128/5622/5622747.png" alt="Handmade" class="mb-3" style="width:60px;">
+                <h5>Ръчна изработка</h5>
+                <p>Всяка свещ е създадена с внимание и любов, за да внесе уют и топлина във вашия дом.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="benefit-item p-4">
+                <img src="https://cdn-icons-png.flaticon.com/512/2917/2917995.png" alt="Aromatherapy" class="mb-3" style="width:60px;">
+                <h5>Ароматерапевтичен ефект</h5>
+                <p>Нашите свещи не само ухаят прекрасно, но и създават релаксираща атмосфера за почивка след дълъг ден.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Invite Section -->
+<section class="gallery-invite">
+    <div class="container">
+        <h2 style="font-family: Arial">РАЗГЛЕДАЙТЕ НАШАТА ГАЛЕРИЯ</h2>
+        <a href="{% url 'gallery' %}" class="btn-invite">към галерия</a>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<div class="container py-5" id="faq">
+    <h2 class="text-center mb-4">Често задавани въпроси</h2>
+    <div class="accordion" id="faqAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    Какви съставки използвате?
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    Използваме натурални восъци като соев и пчелен восък, както и висококачествени ароматни масла.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Колко време горят свещите?
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    Нашите свещи горят между 30 и 60 часа в зависимост от размера и условията на използване.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Предлагате ли персонализирани свещи?
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <p>Да! Можем да създадем свещи по индивидуална поръчка за подаръци, събития и специални поводи. <br>
+                        Ако имате някакви запитвания може ги направите от формата <a class="button" href="#contact-form" style="text-decoration: underline">ТУК</a> </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div id="reviews" class="container py-5">
+    <div class="text-center"><h2>⭐ Ревюта ⭐ </h2></div>
+    <div style="">
+        <img src="{{ MEDIA_URL }}/reviews/review.png" alt="">
+        <img src="{{ MEDIA_URL }}/reviews/review2.png" alt="">
+        <img src="{{ MEDIA_URL }}/reviews/review3.png" alt="">
+        <img src="{{ MEDIA_URL }}/reviews/review4.png" alt="">
+        <img style="max-width: 300px;max-height: 300px" src="{{ MEDIA_URL }}/reviews/review5.jpg" alt="">
+        <img style="max-width: 400px;max-height: 300px" src="{{ MEDIA_URL }}/reviews/review6.jpg" alt="">
+        <img style="max-width: 310px;max-height: 350px" src="{{ MEDIA_URL }}/reviews/review7.jpg" alt="">
+        <img src="{{ MEDIA_URL }}/reviews/review8.png" alt="">
+    </div>
+
+</div>
+
+<!-- Contact Form -->
+<div style="background: rgba(103,98,92,0.12);border-radius: 2px;box-shadow:2px 3px 4px 4px rgba(38,34,34,0.25);padding-bottom: 0px" class="container py-5" id="contact-form">
+    <h2 class="text-center mb-4">Имаш запитване? </h2>
+    <h5 class="text-center mb-4">Попълни долния формуляр и ние ще се свържем с теб.</h5>
+    <form action="{% url 'request_help' %}" class="contact-form" method="post">
+    {% csrf_token %}
+    <input type="email" name="email" placeholder="Вашият имейл" required>
+    <input type="tel" name="phone" placeholder="Вашият телефон" required>
+    <input type="text" name="subject" placeholder="Заглавие" required>
+    <textarea name="description" rows="5" placeholder="Описание" required></textarea>
+    <div style="text-align: center;">
+        <button id="submitBtn" type="submit">Изпрати</button>
+    </div>
+</form>
+    {% if messages %}
+    <div id="message">
+        {% for message in messages %}
+            <span class="checkmark"></span> {{ message }}
+        {% endfor %}
+        </div>
+    {% endif %}
+</div>
+</div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</div>
+</div>
+</body>
+<style>
+  #message {
+    background-color: #dff0d8;
+    color: #3c763d;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+</style>
+{% include "footer.html" %}
+</html>

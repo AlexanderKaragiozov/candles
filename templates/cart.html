@@ -1,0 +1,77 @@
+{% include 'navbar.html' %}
+
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+
+
+
+<body>
+<div style="margin-top: 100px;text-align: center" class="container py-5">
+    <h2 class="text-center mb-4">🛒 Твоята Количка</h2>
+
+    {% if items %}
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Изображение</th>
+                    <th>Продукт</th>
+                    <th>Описание</th>
+                    <th>Количество</th>
+                    <th>Цена (ЛВ.)</th>
+                    <th>Общо (ЛВ.)</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr class="cart-item">
+                    <td><img src="../media/{{ item.image }}" alt="{{ item.name }}" class="cart-img"></td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.description }}</td> <!-- Assuming item has a description field -->
+                    <td>
+                        <form action="{% url 'decrease_quantity' item.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-light btn-sm">➖</button>
+                        </form>
+                        {{ item.quantity }}<!-- Inline quantity -->
+                        <form action="{% url 'increase_quantity' item.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-light btn-sm">➕</button>
+                        </form>
+                    </td>
+
+
+                    <td>{{ item.price|floatformat:2 }}</td>
+                    <td>{{ item.total_price|floatformat:2}}</td> <!-- Total price calculation -->
+                    <td>
+                        <form action="{% url 'remove_from_cart' item.id %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm mt-2">🗑️ Премахни</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div>
+            <h2 style="color: black; float: right;margin-right: 40px; background-color: #28a745;padding: 10px;margin-top: 0px">Обща сума : {{ total_cart_price }} ЛВ.</h2>
+        </div>
+
+
+{#        <!-- Checkout Section (optional) -->#}
+{#        <div class="text-center mt-4">#}
+{#            <a href="{% url 'checkout' %}" class="btn btn-success btn-lg">✅ Към Плащане</a>#}
+{#        </div>#}
+
+    {% else %}
+        <p class="text-center text-muted" style="font-size: 25px">Количката е празна</p>
+        <img src="https://cdn-icons-png.flaticon.com/128/13791/13791276.png" alt="">
+        <form action="{% url "home" %}#shop" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button style="margin-top: 20px" type="submit" class="btn btn-success btn-sm mt-2">Обратно към начало</button>
+                        </form>
+    {% endif %}
+</div>
+</body>
+

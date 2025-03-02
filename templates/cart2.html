@@ -1,0 +1,175 @@
+{% load static %}
+{% include 'navbar.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta Pixel Code -->
+
+<!-- End Meta Pixel Code -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart Page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/cart2.css' %}">
+
+    <style>
+        /* Custom style to remove extra padding from container */
+        .custom-container {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    </style>
+    <script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '667508889037580');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=667508889037580&ev=PageView&noscript=1"
+/></noscript>
+</head>
+<body>
+
+{% if items|length  %}
+	<div class="container mt-5 custom-container">
+    <div class="row">
+        <!-- Cart Section (7 columns) -->
+        <div class="col-md-7">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">🛒 Твоята Количка</h4>
+                    <p class="text-muted">{{ items|length }} Артикула</p>
+
+                    {% for product in items %}
+                    <!-- Cart items list -->
+                    <div class="cart-item p-3 border-bottom">
+                        <div class="row align-items-center">
+                            <div class="col-3">
+                                <img class="img-fluid" src="../media/{{ product.image }}" alt="item image">
+                            </div>
+                            <div class="col-5">
+                                <p><b>{{ product.name }}</b></p>
+                                <p><b>АРОМАТ : {{ product.cent }}</b></p>
+                                <p class="text-muted">{{ product.description }}</p>
+                            </div>
+                            <div class="col-2 text-center">
+                                <form action="{% url 'decrease_quantity' product.id %}" method="post" class="d-inline">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-outline-secondary btn-sm">➖</button>
+                                </form>
+                                <span class="mx-2">{{ product.quantity }}</span>
+                                <form action="{% url 'increase_quantity' product.id %}" method="post" class="d-inline">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-outline-secondary btn-sm">➕</button>
+                                </form>
+                            </div>
+                            <div class="col-2 text-right">
+                                {% if product.promotion_price != 0 %}
+                                	<b style="margin-left: 25px">{{ product.promotion_price }} ЛВ.</b>
+                                    {% else  %}
+                                    <b style="margin-left: 25px">{{ product.price }} ЛВ.</b>
+                                {% endif %}
+
+                                <div class="col-12 text-right mt-2">
+                                    <form action="{% url 'remove_from_cart' product.id %}" method="post">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-sm" data-toggle="tooltip" title="Премахни от количка">🗑️</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    <!-- Back to shop link -->
+                    <div class="back-to-shop mt-3">
+                        <a href="{% url 'products' %}" class="text-muted" style="font-size: 20px">&leftarrow; <b>Обратно към продукти</b></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Section BELOW Cart (7 columns) -->
+            <div class="summary p-4 bg-light rounded mt-4">
+                <h5><b>Поръчка</b></h5>
+                <hr>
+                <div class="row">
+                    <div class="col"><b>ОБЩА СУМА</b></div>
+                    <div class="col text-right"><b>{{ total_cart_price }} ЛВ.</b></div>
+                </div>
+
+                <div class="row mt-3 pt-3">
+                    <div class="col"><b>ДОСТАВКА:</b></div>
+                    <div class="col text-right"><b>{% if total_cart_price > 70 %}
+                    	<span style="color: #28a745">БЕЗПЛАТНА</span>
+                    {% endif %} {% if total_cart_price < 70 %}
+                    	<span style="color: #1a1a1a">{{ shipping }} ЛВ.</span>
+
+                    {% endif %} </b>
+                    </div>
+                </div>
+                {% if total_cart_price < 70 %}
+                	<div class="row">
+                    <h5 style="color: green;margin-top: 0px" class="col text-center">Добави продукти за още {{ needed_amount }} лв. и получи безплатна доставка</h5>
+                    </div>
+                {% endif %}
+
+                <div class="row mt-3 border-top pt-3">
+                    <div class="col"><b>ОБЩО :</b></div>
+                    <div class="col text-right"><b>{{ total_price_with_shipping }} ЛВ.</b></div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <!-- Form Section (5 columns) -->
+        <div class="col-md-5">
+            <div class="summary p-4 bg-light rounded">
+                <h5><b>Данни за поръчка</b></h5>
+                <hr>
+
+                <form action="{% url 'place_order' %}" method="post">
+                    {% csrf_token %}
+                    <p style="color: red">* <span style="font-weight: bold;color: black">Име:</span></p>
+                    <input required class="form-control mb-3" name="first_name" placeholder="Въведете име">
+
+                    <p style="color: red">* <span style="font-weight: bold;color: black">Фамилия:</span></p>
+                    <input required class="form-control mb-3" name="last_name" placeholder="Въведете фамилия">
+
+                    <p style="color: red">* <span style="font-weight: bold;color: black">Имейл:</span></p>
+                    <input required class="form-control mb-3" name="email" placeholder="Въведете имейл">
+
+                    <p style="color: red">* <span style="font-weight: bold;color: black">Телефон:</span></p>
+                    <input required class="form-control mb-3" name="phone" placeholder="Въведете тел. номер">
+                    <p style="color: red">* <span style="font-weight: bold;color: black">Град:</span></p>
+                    <input required class="form-control mb-3" name="city" placeholder="Въведете град">
+                    <p style="color: red">* <span style="font-weight: bold;color: black">Адрес за доставка:</span></p>
+                    <input required class="form-control mb-3" name="address" placeholder="Спиди/Еконт">
+
+                    <button class="btn btn-dark w-100 mt-3">ПОРЪЧАЙ</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+    {% else%}
+
+        <div style="margin-top: 100px" class="text-center">
+        <p class="text-muted" style="font-size: 25px">Количката е празна</p>
+        <img class="text-center" src="https://cdn-icons-png.flaticon.com/128/13791/13791276.png" alt="">
+        <form action="{% url "home" %}#most_sold" method="post" class="d-inline text-center">
+                            {% csrf_token %}
+                            <button style="margin-top: 20px" type="submit" class="btn btn-success btn-sm mt-2">Обратно към начало</button>
+                        </form>
+        </div>
+{% endif %}
+
+</body>
+</html>

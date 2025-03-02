@@ -1,0 +1,34 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+
+<div style="margin-bottom: 26px">
+    {% include 'announcement_bar.html' %}
+</div>
+
+<nav style="background-color: rgba(0, 0, 0,1)" class="navbar">
+    <div class="logo">
+        <a href="/">KataleyaCandles</a>
+    </div>
+
+    <ul class="nav-links" id="navLinks">
+        <li><a href="/">Начало</a></li>
+        <li><a href="{% url 'products' %}">Продукти</a></li>
+        <li><a href="{% url 'gallery' %}">Галерия</a></li>
+        <li><a href="{% url 'home' %}#reviews">Ревюта</a></li>
+
+        <li><a href="{% url 'cart_view' %}">🛒</a></li>
+    </ul>
+
+    <div class="hamburger" onclick="toggleMenu()">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </div>
+</nav>
+
+<script>
+    function toggleMenu() {
+        let navLinks = document.getElementById("navLinks");
+        navLinks.classList.toggle("active");
+    }
+</script>

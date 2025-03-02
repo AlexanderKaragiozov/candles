@@ -1,0 +1,387 @@
+
+.alert-success {
+        background-color: #28a745;  /* Green background */
+        color: white;  /* White text */
+        padding: 10px;
+        border-radius: 5px;
+    }
+body { background-color: #f8f9fa; color: #f8f9fa; font-family: Arial, sans-serif; }
+.hero { background-size: cover; color: white; padding: 100px 0; text-align: center; }
+.product img { width: 100%; border-radius: 10px; }
+.testimonial { background: #f8f9fa; padding: 50px 0; }
+.footer { background: #000; color: white; padding: 20px 0; text-align: center; }
+
+.hero {
+        height: 100vh;
+
+        position: relative;
+    }
+
+.hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.3); /* Dark overlay for contrast */
+    }
+
+.hero .container {
+        position: relative;
+        z-index: 2;
+    }
+
+.btn-custom{
+        background-color: #e6af4b;
+        color: #1a1a1a;
+        border-radius: 30px;
+        padding: 12px 24px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        transition: 0.3s ease-in-out;
+    }
+
+.btn-custom:hover {
+        background-color: #cf9b3a;
+        color: #fff;
+        transform: scale(1.05);
+    }
+
+/* Modal Styles */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0); /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.7); /* Black with opacity */
+    }
+
+    .modal-content {
+        position: relative;
+        margin: 15% auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        width: 80%;
+        max-width: 600px;
+        text-align: center;
+    }
+
+    .close-btn {
+        color: #aaa;
+        font-size: 28px;
+        font-weight: bold;
+        position: absolute;
+        top: 10px;
+        right: 20px;
+    }
+
+    .close-btn:hover,
+    .close-btn:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .modal img {
+        width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+.benefit-item {
+    background-color: #fef5e7;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.benefit-item:hover {
+    transform: translateY(-10px);
+}
+
+.benefit-item p {
+    flex-grow: 1;
+}
+
+
+@media screen and (max-width:766px) {
+    .col-md-4{
+        padding-bottom: 15px !important;
+    }
+}
+/* Styling for the gallery invite section */
+/* Styling for the gallery invite section */
+.gallery-invite {
+    background-color: #fef5e7;  /* Match the soft cream background like other sections */
+    padding: 40px 0;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  /* Soft shadow to match the rest of the design */
+    border-radius: 10px;
+}
+
+.gallery-invite .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.gallery-invite h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #333;  /* Darker text for contrast */
+    font-family: 'Arial', sans-serif;
+}
+
+.gallery-invite p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: #555;  /* Slightly lighter text for better readability */
+    font-family: 'Arial', sans-serif;
+}
+
+.btn-invite {
+    background-color: #e6af4b;  /* Match the yellowish-orange theme from btn-custom */
+    color: #1a1a1a;  /* Dark text color for contrast */
+    text-decoration: none;
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    border-radius: 30px;  /* Match the rounded corners of other buttons */
+    transition: 0.3s ease-in-out;
+}
+
+.btn-invite:hover {
+    background-color: #cf9b3a;  /* Hover color that fits with your overall palette */
+    color: #fff;
+    transform: scale(1.05);  /* Slightly enlarge the button on hover */
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;  /* Center the buttons horizontally */
+    gap: 10px;  /* Add some space between the buttons */
+}
+
+.button-container form {
+    margin: 0;  /* Remove form margin to make buttons fit properly */
+}
+
+.accordion-button {
+    background-color: #fef5e7;
+    color: #333;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.accordion-button:hover {
+    background-color: #f6d365;
+    color: #fff;
+}
+
+.accordion-item {
+    border: none;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.accordion-body {
+    background-color: #fff;
+    color: #555;
+    padding: 20px;
+    font-size: 1.1em;
+}
+
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #f5b7b1, #f8c471); /* Gradient background */
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.contact-form:hover {
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+}
+
+.contact-form input, .contact-form textarea {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1em;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.contact-form input:focus, .contact-form textarea:focus {
+    border-color: #f8c471;
+    outline: none;
+}
+
+.contact-form button {
+    background: linear-gradient(135deg, #ff7f50, #ff6347); /* Gradient from coral to tomato */
+    color: #fff;
+    border: none;
+    padding: 14px 25px;
+    border-radius: 10px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-form button:hover {
+    background: linear-gradient(135deg, #ff6347, #ff7f50); /* Reverse gradient on hover */
+    transform: scale(1.05);
+
+
+    .contact-form button:hover {
+        background-color: #fda085;
+        transform: scale(1.05);
+    }
+
+    .contact-form h2 {
+        font-family: 'Roboto', sans-serif;
+        color: #333;
+        font-weight: 600;
+    }
+
+    .contact-form input, .contact-form textarea {
+        font-family: 'Arial', sans-serif;
+        border-radius: 10px;
+    }
+
+    .button-container {
+        display: flex;
+        gap: 10px; /* Adjusts the space between buttons */
+        justify-content: center; /* Centers the buttons horizontally */
+        align-items: center; /* Ensures the buttons are aligned vertically in the center */
+        text-align: center; /* Centers text inside the buttons */
+    }
+
+
+}
+#most_sold {
+    /*background: linear-gradient(135deg, #ff7f50, #ec2d05);*/
+background: rgb(2,0,0);
+background: radial-gradient(circle, rgba(2,0,0,1) 25%, rgba(255,0,0,0.7869649080335259) 63%);
+    color: white; /* Text color */
+    font-size: 2em; /* Font size */
+    font-weight: bold; /* Bold font */
+    text-align: center; /* Center text */
+    padding: 20px; /* Some padding to make it look nice */
+    border-radius: 1px; /* Optional: Add rounded corners */
+    transition: background 0.5s ease-in-out; /* Smooth transition */
+}
+#last_added{
+  background: rgb(2,0,0);
+    background: radial-gradient(circle, rgba(2,0,0,1) 32%, rgba(39,0,255,0.7869649080335259) 63%);
+    color: white; /* Text color */
+    font-size: 2em; /* Font size */
+    font-weight: bold; /* Bold font */
+    text-align: center; /* Center text */
+    padding: 20px; /* Some padding to make it look nice */
+    border-radius: 1px; /* Optional: Add rounded corners */
+    transition: background 0.5s ease-in-out; /* Smooth transition */
+}
+#promos{
+background: rgb(0,0,0);
+background: radial-gradient(circle, rgba(0,0,0,1) 20%, rgba(117,3,202,0.8233794738598564) 67%);
+    color: white; /* Text color */
+    font-size: 2em; /* Font size */
+    font-weight: bold; /* Bold font */
+    text-align: center; /* Center text */
+    padding: 20px; /* Some padding to make it look nice */
+    border-radius: 1px; /* Optional: Add rounded corners */
+    transition: background 0.5s ease-in-out; /* Smooth transition */
+}
+/* Style for the message box */
+.hidden {
+  display: none;  /* Ensure it actually hides the element */
+}
+
+#message {
+  background-color: #dff0d8;
+  color: #3c763d;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+ .browse-container {
+     margin: 20px 20px;
+     background: rgb(0,210,255);
+background: linear-gradient(240deg, rgba(0,210,255,1) 0%, rgba(253,29,29,1) 55%, rgba(252,176,69,1) 100%);
+      padding: 50px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+
+  .browse-button {
+      background: white;
+      color: #4F46E5;
+      font-size: 18px;
+      font-weight: bold;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .browse-button:hover {
+      background: #E0E7FF;
+      transform: scale(1.1);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  }
+   .price-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px; /* Space between prices */
+      text-align: center;
+  }
+
+  /* Original price (with strikethrough) */
+  .old-price {
+      color: red;
+      font-size: 18px;
+      font-weight: bold;
+      text-decoration: line-through;
+      margin: 0;
+  }
+
+  /* Arrow separator */
+  .arrow {
+      color: black;
+      font-size: 22px;
+      font-weight: bold;
+  }
+
+  /* Discounted price */
+  .new-price {
+      color: green;
+      font-size: 24px;
+      font-weight: bolder;
+      margin: 0;
+  }

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta Pixel Code -->
+
+<!-- End Meta Pixel Code -->
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/ico" href="{% static 'logo.ico' %}">
+    <title>KataleyaCandles</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/product_view.css' %}"> <!-- Custom CSS -->
+    <script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '667508889037580');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=667508889037580&ev=PageView&noscript=1"
+/></noscript>
+</head>
+
+{% load my_tags %}
+<body>
+{% include 'navbar.html' %}
+<div style="margin-top: 7rem !important;" class="container mt-5">
+    <div class="row">
+        <!-- BIG IMAGE -->
+        <div class="col-md-6 text-center">
+
+
+
+            <a href="{{ candle.image.url }}" data-bs-toggle="modal" data-bs-target="#imageModal{{ forloop.counter }}">
+                <img src="{{ candle.image.url }}" alt="{{ candle.name }}" class="img-fluid big-image">
+            </a>
+            <div class="row mt-3">
+                <!-- SMALL IMAGES -->
+                <div class="col-4">
+                    <a href="{{ candle.image.url }}" data-bs-toggle="modal" data-bs-target="#imageModal{{ forloop.counter }}">
+                        <img src="{{ candle.image.url }}" alt="{{ candle.name }}" class="img-fluid big-image">
+                    </a>
+                </div>
+                <div class="col-4">
+                    <img src="https://via.placeholder.com/100" class="img-fluid small-image">
+                </div>
+                <div class="col-4">
+                    <img src="https://via.placeholder.com/100" class="img-fluid small-image">
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCT DETAILS -->
+        <div style="padding-left: 40px" class="col-md-6">
+            <h1 class="product-title">{{ candle.name }}</h1>
+            {% if candle.promotion != 0 %}
+            	<div class="price-container">
+                    <p class="old-price">{{ candle.price }} ЛВ.</p>
+                    <span class="arrow">→</span>
+                    <p class="new-price">{{ candle.promotion_price }} ЛВ.</p>
+                </div>
+                {% else %}
+                <p class="product-price">{{ candle.price }} ЛВ.</p>
+            {% endif %}
+            <p class="product-description">
+                {{ candle.description }}
+            </p>
+            <h3 style="font-size: 20px;font-weight: bold;color: black">Аромат : <span style="color: #e60000;font-weight: bolder;font-size: 25px">{{ candle.cent }}</span><h3>
+
+            <!-- FEATURES -->
+            <h4>Какво прави свеща уникална?</h4>
+            <ul class="features">
+                <li class="feature-li">🏡 Усещане за уют</li>
+                <li class="feature-li">🕯️ Дълготраен аромат</li>
+                <li class="feature-li">🎁 Перфектен подарък</li>
+                <li class="feature-li">📦 Добре опакована</li>
+                <li class="feature-li">🔨 Ръчно изработени</li>
+            </ul>
+
+            <!-- REVIEWS -->
+            <h4>Ревюта
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                    <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                </svg>
+                <!-- Add more stars for ratings -->
+                ({{ candle.reviews }} ревюта)
+            </h4>
+
+            <!-- QUANTITY ADJUSTMENT -->
+<div class="d-flex align-items-center mt-4">
+    <button type="button" class="btn btn-outline-secondary btn-sm" id="decrease-btn">➖</button>
+
+    <span class="mx-3 quantity" id="quantity">1</span> <!-- Display Quantity -->
+
+    <button type="button" class="btn btn-outline-secondary btn-sm" id="increase-btn">➕</button>
+</div>
+
+<!-- Add to Cart Form -->
+<div class="button-group mt-4">
+    <!-- Add to Cart Form -->
+    <form action="{% url 'add_to_cart' candle.id %}" method="post" id="cart-form" style="display: inline-block;">
+        {% csrf_token %}
+        <input type="hidden" id="quantity-input" name="quantity" value="1"> <!-- Hidden input to store quantity value -->
+        <button type="submit" class="btn btn-dark btn-lg" id="add-to-cart-btn" style="">🛒 Добави в количка</button>
+    </form>
+
+    <!-- Buy Now Button -->
+    <button class="btn btn-primary btn-lg" id="buy-now-btn" style="display: inline-block;">🚀 Купи сега</button>
+</div>
+
+
+
+
+
+<!-- Bootstrap Modal for image -->
+<div class="modal fade" id="imageModal{{ forloop.counter }}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <img src="{{ candle.image.url }}" class="img-fluid rounded">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    // Handle increase and decrease of quantity
+    document.getElementById('decrease-btn').addEventListener('click', function() {
+        var quantity = document.getElementById('quantity');
+        var quantityInput = document.getElementById('quantity-input');
+
+        var currentQuantity = parseInt(quantity.innerText);
+
+        if (currentQuantity > 1) { // Ensure quantity does not go below 1
+            currentQuantity -= 1;
+            quantity.innerText = currentQuantity;
+            quantityInput.value = currentQuantity;  // Update hidden input value
+        }
+    });
+
+    document.getElementById('increase-btn').addEventListener('click', function() {
+        var quantity = document.getElementById('quantity');
+        var quantityInput = document.getElementById('quantity-input');
+
+        var currentQuantity = parseInt(quantity.innerText);
+
+        currentQuantity += 1;
+        quantity.innerText = currentQuantity;
+        quantityInput.value = currentQuantity;  // Update hidden input value
+    });
+
+    // When "Buy Now" button is clicked
+    document.getElementById('buy-now-btn').addEventListener('click', function() {
+        // Get the quantity value (update this as needed from your UI)
+        var quantity = document.getElementById('quantity').innerText;
+
+        // Update the hidden quantity input value with the current quantity
+        document.getElementById('quantity-input').value = quantity;
+
+        // Submit the Add to Cart form via AJAX (without reloading the page)
+        var form = document.getElementById('cart-form');
+
+        var formData = new FormData(form);
+
+        // Send the form data to add to cart
+        fetch(form.action, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': formData.get('csrfmiddlewaretoken'),
+            },
+            body: formData,
+        })
+        .then(response => {
+            if (response.ok) {
+                // After successfully adding to cart, redirect to the cart view
+                window.location.href = "{% url 'cart_view' %}";
+            } else {
+                alert('There was an error adding the product to the cart');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+</script>
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

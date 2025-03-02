@@ -1,0 +1,125 @@
+/* BIG IMAGE */
+.big-image {
+
+    transition: transform 0.3s ease-in-out;
+}
+
+.big-image:hover {
+
+}
+
+/* SMALL IMAGES */
+.small-image {
+    height: 10px;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.small-image:hover {
+    transform: scale(1.1);
+}
+
+/* PRODUCT DETAILS */
+.product-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.product-price {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #28a745;
+}
+
+.discount {
+    text-decoration: line-through;
+    color: gray;
+    font-size: 1.3rem;
+}
+
+.product-description {
+    font-size: 1.1rem;
+    color: #555;
+}
+
+/* FEATURES */
+.features {
+    list-style: none;
+    padding-left: 0;
+}
+
+.features li{
+
+
+    margin: 5px 0;
+}
+.feature-li{
+    font-size: 1.3rem;
+    color: #757272;
+}
+/* QUANTITY ADJUSTMENT */
+.quantity {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* BUTTONS */
+.button-group .btn {
+    /*width: 75%;*/
+    padding: 12px;
+    font-size: 1.2rem;
+    border-radius: 10px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-dark:hover {
+    background-color: #222;
+}
+
+.button-group {
+    display: flex;
+     /* This will ensure the buttons are spaced out evenly */
+    gap: 10px;  /* Adjust the gap between the buttons */
+}
+ .price-container {
+      display: flex;
+      align-items: center;
+
+      gap: 15px; /* Space between prices */
+      text-align: center;
+
+  }
+
+  /* Original price (with strikethrough) */
+  .old-price {
+      color: red;
+      font-size: 20px;
+      font-weight: bold;
+      text-decoration: line-through;
+      margin: 0;
+  }
+
+  /* Arrow separator */
+  .arrow {
+      color: black;
+      font-size: 22px;
+      font-weight: bold;
+  }
+
+  /* Discounted price */
+  .new-price {
+      color: green;
+      font-size: 24px;
+      font-weight: bolder;
+      margin: 0;
+  }

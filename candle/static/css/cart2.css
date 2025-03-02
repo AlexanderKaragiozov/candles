@@ -1,0 +1,100 @@
+body {
+    background: #f8f9fa;
+    font-family: sans-serif;
+    font-size: 1rem;
+    font-weight: normal;
+    margin: 0;
+}
+.p-3{
+    padding-top: 1.5rem !important;
+    padding-right: 1.5rem!important;
+    padding-left: 1.5rem!important;
+    padding-bottom: 1.5rem!important;
+}
+/* Card Section */
+.card {
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 1rem;
+    background-color: white;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.cart-item {
+    /*padding-top: 1.5rem !important;*/
+    /*border-bottom: 1px solid #e1e1e1;*/
+    background: rgba(119, 113, 113, 0.1) !important;
+    border-radius: 1px;
+    margin-bottom: 5px;
+    border: rgba(25, 23, 23, 0.81) solid 2px !important;
+
+}
+
+.cart-item img {
+    width: 70%;
+    max-height: 120px;
+
+}
+
+.cart-item .col-2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cart-item .col-1 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.back-to-shop {
+    margin-top: 2rem;
+    text-align: left;
+}
+
+.back-to-shop a {
+    color: #000;
+    text-decoration: none;
+}
+
+.back-to-shop a:hover {
+    text-decoration: underline;
+}
+
+/* Summary Section */
+.summary {
+    background-color: #ffffff;
+    padding: 2rem;
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 1rem;
+}
+
+.summary .row {
+    margin-bottom: 1rem;
+}
+
+.summary select,
+.summary input {
+
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+}
+
+.summary button {
+    padding: 1rem;
+    font-size: 1.2rem;
+    background-color: #000;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.summary button:hover {
+    background-color: #444;
+}
