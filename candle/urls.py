@@ -17,6 +17,9 @@ urlpatterns = [
     path('increase-quantity/<int:candle_id>/', views.increase_quantity, name='increase_quantity'),
     path('decrease-quantity/<int:candle_id>/', views.decrease_quantity, name='decrease_quantity'),
     path('remove-from-cart/<int:candle_id>/', views.remove_from_cart, name='remove_from_cart'),
+    path('lichni_danni/', views.lichni_danni, name='lichni_danni'),
+    path('biscuits/', views.biscuits, name='biscuits'),
+    path('tos/', views.tos, name='tos'),
 
 ]
 

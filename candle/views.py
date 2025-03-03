@@ -304,3 +304,11 @@ def request_help(request):
         home_url = reverse('home')  # Get the URL of the 'home' view
         messages.success(request, "✅ Успешно изпратена заявка!")
         return redirect(home_url + '#message')  # Append the fragment
+
+def lichni_danni(request):
+    return render(request,'lichni-danni.html')
+
+def biscuits(request):
+    return render(request,'Biscuits.html')
+def tos(request):
+    return render(request,'tos.html')
