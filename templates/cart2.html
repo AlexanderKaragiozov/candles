@@ -72,9 +72,9 @@ src="https://www.facebook.com/tr?id=667508889037580&ev=PageView&noscript=1"
                             </div>
                             <div class="col-2 text-right">
                                 {% if product.promotion_price != 0 %}
-                                	<b style="margin-left: 25px">{{ product.promotion_price }} ЛВ.</b>
+                                	<b style="margin-left: 25px">{{ product.promotion_price|floatformat:2 }} ЛВ.</b>
                                     {% else  %}
-                                    <b style="margin-left: 25px">{{ product.price }} ЛВ.</b>
+                                    <b style="margin-left: 25px">{{ product.price|floatformat:2 }} ЛВ.</b>
                                 {% endif %}
 
                                 <div class="col-12 text-right mt-2">
@@ -101,7 +101,7 @@ src="https://www.facebook.com/tr?id=667508889037580&ev=PageView&noscript=1"
                 <hr>
                 <div class="row">
                     <div class="col"><b>ОБЩА СУМА</b></div>
-                    <div class="col text-right"><b>{{ total_cart_price }} ЛВ.</b></div>
+                    <div class="col text-right"><b>{{ total_cart_price|floatformat:2 }} ЛВ.</b></div>
                 </div>
 
                 <div class="row mt-3 pt-3">
@@ -137,21 +137,21 @@ src="https://www.facebook.com/tr?id=667508889037580&ev=PageView&noscript=1"
 
                 <form action="{% url 'place_order' %}" method="post">
                     {% csrf_token %}
-                    <p style="color: red">* <span style="font-weight: bold;color: black">Име:</span></p>
-                    <input required class="form-control mb-3" name="first_name" placeholder="Въведете име">
+                    <p style="color: red">* <span style="font-weight: bold;color: black">Име и фамилия:</span></p>
+                    <input required class="form-control mb-3" name="name" placeholder="Въведете име и фамилия">
 
-                    <p style="color: red">* <span style="font-weight: bold;color: black">Фамилия:</span></p>
-                    <input required class="form-control mb-3" name="last_name" placeholder="Въведете фамилия">
+{#                    <p style="color: red">* <span style="font-weight: bold;color: black">Фамилия:</span></p>#}
+{#                    <input required class="form-control mb-3" name="last_name" placeholder="Въведете фамилия">#}
 
-                    <p style="color: red">* <span style="font-weight: bold;color: black">Имейл:</span></p>
-                    <input required class="form-control mb-3" name="email" placeholder="Въведете имейл">
+{#                    <p style="color: red">* <span style="font-weight: bold;color: black">Имейл:</span></p>#}
+{#                    <input required class="form-control mb-3" name="email" placeholder="Въведете имейл">#}
 
                     <p style="color: red">* <span style="font-weight: bold;color: black">Телефон:</span></p>
                     <input required class="form-control mb-3" name="phone" placeholder="Въведете тел. номер">
-                    <p style="color: red">* <span style="font-weight: bold;color: black">Град:</span></p>
-                    <input required class="form-control mb-3" name="city" placeholder="Въведете град">
-                    <p style="color: red">* <span style="font-weight: bold;color: black">Адрес за доставка:</span></p>
-                    <input required class="form-control mb-3" name="address" placeholder="Спиди/Еконт">
+                    <p style="color: red">* <span style="font-weight: bold;color: black">Град и адрес за доставка:</span></p>
+                    <input required class="form-control mb-3" name="city" placeholder="Въведете град и адрес за доставка">
+{#                    <p style="color: red">* <span style="font-weight: bold;color: black">Адрес за доставка:</span></p>#}
+{#                    <input required class="form-control mb-3" name="address" placeholder="Спиди/Еконт">#}
 
                     <button class="btn btn-dark w-100 mt-3">ПОРЪЧАЙ</button>
                 </form>

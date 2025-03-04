@@ -194,6 +194,8 @@ def remove_from_cart(request, candle_id):
     return response
 def products(request):
     products = Candle.objects.all()
+    for candle in products:
+        candle.price = round(candle.price,2)
     print(products)
     return render(request,'products.html', {'products':products,'MEDIA_URL': settings.MEDIA_URL})
 
@@ -238,27 +240,34 @@ def fast_buy(request,candle_id):
 
 def place_order(request):
     if request.method == "POST":
-        first_name = request.POST.get("first_name")
-        last_name = request.POST.get("last_name")
-        email = request.POST.get("email")
+        name = request.POST.get("name")
+        # last_name = request.POST.get("last_name")
+        # email = request.POST.get("email")
         phone = request.POST.get("phone")
         city = request.POST.get("city")
-        address = request.POST.get("address")
+        # address = request.POST.get("address")
+        parts = name.split()
+        if len(parts) == 2:
+            first_name,last_name = parts
+        else:
+            first_name = name
+            last_name = ""
 
 
-        if first_name and last_name and email and phone and city and address:
+
+        if first_name and last_name and phone and city:
             # Create or get the customer
             customer, created = Customer.objects.get_or_create(
-                email=email,  # Prevent duplicate customers based on email
+                email='',  # Prevent duplicate customers based on email
                 defaults={
                     "first_name": first_name,
                     "last_name": last_name,
                     "phone": phone,
                     "city": city,
-                    "address": address
+                    "address": ''
                 }
             )
-            SPREADSHEET_ROW = [first_name, last_name, email, phone, city, address]
+            SPREADSHEET_ROW = [first_name, last_name,'', phone, city,'']
             cart = request.COOKIES.get("cart")
             cart = json.loads(cart)
             order = ''

@@ -53,7 +53,16 @@ id="most_sold"
         <div class="product text-center">
             <img class="gallery-img" style="width: 300px;margin-top: 20px" src="../media/{{ candle.image }}" alt="{{ candle.name }}" data-id="{{ candle.id }}" data-name="{{ candle.name }}" data-price="{{ candle.price }}" data-description="{{ candle.description }}" data-image="../media/{{ candle.image }}">
             <h5 class="mt-3">{{ candle.name }}</h5>
-            <p style="font-size: 20px; font-weight: bold">{{ candle.price }} ЛВ.</p>
+            {% if candle.promotion_price != 0 %}
+            	<div class="price-container">
+                    <p class="old-price">{{ candle.price|floatformat:2 }} ЛВ.</p>
+                    <span class="arrow">→</span>
+                    <p class="new-price">{{ candle.promotion_price|floatformat:2 }} ЛВ.</p>
+                </div>
+
+                {% else %}
+                <p class="new-price" style="font-size: 20px; font-weight: bold;">{{ candle.price|floatformat:2 }} ЛВ.</p>
+            {% endif %}
             <div class="button-container">
                 <form action="{% url 'view_product' candle.id %}" method="get">
                     {% csrf_token %}
@@ -82,7 +91,17 @@ id="most_sold"
         <div class="product text-center">
             <img class="gallery-img" style="width: 300px;margin-top: 20px" src="../media/{{ candle.image }}" alt="{{ candle.name }}" data-id="{{ candle.id }}" data-name="{{ candle.name }}" data-price="{{ candle.price }}" data-description="{{ candle.description }}" data-image="../media/{{ candle.image }}">
             <h5 class="mt-3">{{ candle.name }}</h5>
-            <p style="font-size: 20px; font-weight: bold">{{ candle.price }} ЛВ.</p>
+            {% if candle.promotion_price != 0 %}
+            	<div class="price-container">
+                    <p class="old-price">{{ candle.price|floatformat:2 }} ЛВ.</p>
+                    <span class="arrow">→</span>
+                    <p class="new-price">{{ candle.promotion_price|floatformat:2 }} ЛВ.</p>
+                </div>
+
+                {% else %}
+                <p class="new-price" style="font-size: 20px; font-weight: bold">{{ candle.price|floatformat:2 }} ЛВ.</p>
+            {% endif %}
+
             <div class="button-container">
                 <form action="{% url 'view_product' candle.id %}" method="get">
                     {% csrf_token %}
@@ -114,9 +133,9 @@ id="promos"
             <img class="gallery-img" style="width: 300px;margin-top: 20px" src="../media/{{ candle.image }}" alt="{{ candle.name }}" data-id="{{ candle.id }}" data-name="{{ candle.name }}" data-price="{{ candle.price }}" data-description="{{ candle.description }}" data-image="../media/{{ candle.image }}">
             <h5 class="mt-3">{{ candle.name }}</h5>
             <div class="price-container">
-    <p class="old-price">{{ candle.price }} ЛВ.</p>
+    <p class="old-price">{{ candle.price|floatformat:2 }} ЛВ.</p>
     <span class="arrow">→</span>
-    <p class="new-price">{{ candle.promotion_price }} ЛВ.</p>
+    <p class="new-price">{{ candle.promotion_price|floatformat:2 }} ЛВ.</p>
 </div>
             <div class="button-container">
                 <form action="{% url 'view_product' candle.id %}" method="get">

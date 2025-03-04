@@ -1,124 +1,283 @@
-
-{% include 'navbar.html' %}
-<!DOCTYPE html>
-<html lang="bg">
 {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+{% include 'navbar.html' %}
 <head>
-    <!-- Meta Pixel Code -->
-
-<!-- End Meta Pixel Code -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>KataleyaCandles</title>
-    <link rel="icon" type="image/ico" href="{% static 'logo.ico' %}">
-    <link rel="stylesheet" href="{% static 'css/products.css' %}">
+    <title>Свещи</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <script src="{% static 'js/products.js' %}" defer></script>
-    <script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '667508889037580');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=667508889037580&ev=PageView&noscript=1"
-/></noscript>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: "fantasy", sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+        }
+
+        /* 🔥 Filter Panel */
+        .filter-panel {
+            background: rgba(164, 160, 160, 0.5);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-panel h5 {
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* 🎚 Custom Price Range Slider */
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, #ff5f6d 0%, #ffc371 100%);
+            border-radius: 5px;
+            outline: none;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        input[type="range"]:hover {
+            opacity: 0.8;
+        }
+
+        /* 🛒 Product Card */
+        .product-card {
+            background: #fff;
+            border: none;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            padding-bottom: 10px;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-img {
+    height: 220px;
+    object-fit: contain; /* Ensures the whole image fits inside the container */
+    border-radius: 12px 12px 0 0;
+    width: 100%; /* Ensure the image scales to the container's width */
+}
+
+
+        .product-info {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+        .btn-custom{
+        background-color: #e6af4b;
+        color: #1a1a1a;
+        border: 0;
+        border-radius: 30px;
+        padding: 12px 24px;
+        font-size: 1rem;
+        font-weight: bold;
+        transition: 0.3s ease-in-out;
+    }
+/* Buttons */
+.btn-primary {
+    background-color: #4CAF50 !important;
+    border: 2px solid black;
+    border-radius: 50px;
+    padding: 12px 18px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+.btn-custom:hover{
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    background: #d8bfbf;
+}
+.btn-primary:hover {
+    font-size: 1.3rem;
+    background-color: #45a049;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+        .product-price {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #ff5f6d;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        /* 🔥 Sale Badge */
+        .sale-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: red;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+.d-flex {
+    display: flex;
+    justify-content: center; /* Centers the buttons horizontally */
+    gap: 10px; /* Adds space between the buttons */
+    align-items: center; /* Ensures both buttons are vertically aligned */
+}
+
+        /* 🛍 Buttons */
+        .btn-buy,
+        .btn-cart {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .btn-cart {
+            background: #f8f9fa;
+            color: #333;
+            border: 2px solid #333;
+        }
+
+        .btn-cart:hover {
+            background: #333;
+            color: white;
+        }
+
+        .btn-buy {
+            background: linear-gradient(90deg, #777171 10%, #019bbb 90%);
+            color: white;
+            border: none;
+        }
+
+        .btn-buy:hover {
+            background: linear-gradient(90deg, #504c4c 10%, #00cbff 90%);
+            color: white;
+        }
+    </style>
 </head>
 <body>
 
-<div class="container py-4">
-    <div class="row g-3 mb-4">
-        <!-- Filter & Sort Section (Left) -->
-        <div class="col-md-3">
-            <div class="border p-3 shadow-sm">
-                <h5 class="fw-bold">Филтриране</h5>
+<div class="container mt-5">
 
-                <!-- Category Filter -->
-                <div class="mb-3">
-                    <label for="categoryFilter" class="form-label">Категория:</label>
-                    <select id="categoryFilter" class="form-select">
-                        <option value="all">Всички</option>
-                        <option value="candles">Свещи</option>
-                    </select>
-                </div>
+<h2 style="background: rgba(49,48,48,0.35);border-radius: 20px;color: white;font-family: 'fantasy';padding: 1.5rem" class="text-center mb-4">🛍️ Налични продукти</h2>
 
-                <!-- Price Filter -->
-                <div class="mb-3">
-                    <label for="priceFilter" class="form-label">Максимална цена: <span id="priceValue">100</span> лв</label>
-                    <input type="range" id="priceFilter" min="0" max="100" value="100" class="form-range">
-                </div>
 
-                <!-- Sort Section -->
-                <div class="mb-3">
-                    <label for="sortProducts" class="form-label">Сортиране:</label>
-                    <select id="sortProducts" class="form-select">
-                        <option value="default">По подразбиране</option>
-                        <option value="low-high">Цена (Ниска → Висока)</option>
-                        <option value="high-low">Цена (Висока → Ниска)</option>
-                    </select>
-                </div>
+
+    <!-- Filter & Sort Panel -->
+    <div class="filter-panel mb-4 p-3">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h5>Ценова рамка: <span id="priceValue">100 лв.</span></h5>
+                <input type="range" id="priceFilter" min="0" max="100" value="100">
+            </div>
+            <div class="col-md-6">
+                <h5>Подреди по:</h5>
+                <select id="sortProducts" class="form-select">
+                    <option value="low-high">Цена: ниска към висока</option>
+                    <option value="high-low">Цена: висока към ниска</option>
+                </select>
             </div>
         </div>
-
-        <!-- Product Grid (Right) -->
-        <div class="col-md-9">
-            <div id="productGrid" class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-                {% for product in products %}
-                <div class="col product-item" data-category="candles" data-price="{{ product.price }}">
-                    <div class="card h-100 shadow-sm border-0">
-                        <a href="{% url 'view_product' product.id %}">
-                            <img src="{{ MEDIA_URL }}{{ product.image }}" class="card-img-top" alt="{{ product.name }}" style="height: 220px; object-fit: cover;">
-                        </a>
-                        <div class="card-body text-center">
-                            <h5 class="card-title">{{ product.name }}</h5>
-                            <h3 style="font-size: 20px;color: #000000">Аромат : <span style="color: #e60000;font-weight: bold;font-size: 15px">{{ product.cent }}</span><h3>
-                            {% if product.promotion_price != 0 %}
-    <div style="display: flex; align-items: center; gap: 10px; font-weight: bold; margin: 10px;">
-        <p style="font-size: 14px; color: red; text-decoration: line-through; margin: 0;">
-            {{ product.price }} лв
-        </p>
-        <span style="color: black; font-size: 16px; font-weight: bold;">→</span>
-        <p style="font-size: 14px; color: green; margin: 0;">
-            {{ product.promotion_price }} лв
-        </p>
     </div>
-{% else %}
-    <div style="font-weight: bold; margin: 10px;">
-        <p class="card-text text-muted">{{ product.price }} лв</p>
-    </div>
-{% endif %}
-                            <div class="d-flex justify-content-center align-items-center gap-2">
-                            <form action="{% url 'view_product' product.id %}" method="get">
-                                {% csrf_token %}
-                                <button class="btn-custom">Виж</button>
-                            </form>
-                            <form action="{% url 'add_to_cart' product.id %}" method="post">
-                                {% csrf_token %}
-                                <button style="background-color: #515151; color: white" class="btn-primary">Купи</button>
-                            </form>
 
-                            </div>
-                            </h3>
-                            </h3>
-                        </div>
+    <!-- Product Grid -->
+    <div id="productGrid" class="row">
+        {% for product in products %}
+        <div class="col-md-4 product-item" data-price="{{ product.price }}" data-promotion-price="{{ product.promotion_price }}">
+            <div class="product-card position-relative">
+                {% if product.promotion_price > 0 %}
+                    <div class="sale-badge">Sale</div>
+                {% endif %}
+                <img src="{{ MEDIA_URL }}{{ product.image }}" alt="{{ product.name }}" class="product-img w-100">
+                <div class="product-info">
+                    <h4 class="product-name">{{ product.name }}</h4>
+                    {% if product.promotion_price > 0 %}
+                        <p class="product-price text-danger">
+                            <span class="old-price">{{ product.price|floatformat:2 }} ЛВ.</span> {{ product.promotion_price|floatformat:2 }} ЛВ.
+                        </p>
+                    {% else %}
+                        <p class="product-price">{{ product.price|floatformat:2 }} ЛВ.</p>
+                    {% endif %}
+                    <div class="d-flex justify-content-center gap-3">
+                        <form action="{% url 'view_product' product.id %}" method="get">
+                            <button class="btn btn-custom">🔎 ВИЖ</button>
+                        </form>
+                        <form action="{% url 'fast_buy' product.id %}">
+                            <button class="btn-primary">🛒 КУПИ</button>
+                        </form>
                     </div>
+
                 </div>
-                {% endfor %}
             </div>
         </div>
+        {% endfor %}
     </div>
 </div>
 
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const productGrid = document.getElementById("productGrid");
+    const sortSelect = document.getElementById("sortProducts");
+    const priceFilter = document.getElementById("priceFilter");
+    const priceValue = document.getElementById("priceValue");
 
+    let allProducts = Array.from(document.querySelectorAll(".product-item")).map(product => ({
+        element: product,
+        price: parseFloat(product.getAttribute("data-price")) || 0,
+        promotion_price: parseFloat(product.getAttribute("data-promotion-price")) || 0
+    }));
 
-</body>
+    function renderProducts(filteredProducts) {
+        productGrid.innerHTML = "";
+        filteredProducts.forEach(product => productGrid.appendChild(product.element));
+    }
+
+    function filterAndSortProducts() {
+        const maxPrice = parseFloat(priceFilter.value) || Infinity;
+        priceValue.innerText = maxPrice + " лв.";
+
+        let filteredProducts = allProducts.filter(product => {
+            let effectivePrice = product.promotion_price > 0 ? product.promotion_price : product.price;
+            return effectivePrice <= maxPrice;
+        });
+
+        filteredProducts.sort((a, b) => {
+            let priceA = a.promotion_price > 0 ? a.promotion_price : a.price;
+            let priceB = b.promotion_price > 0 ? b.promotion_price : b.price;
+            return sortSelect.value === "low-high" ? priceA - priceB : priceB - priceA;
+        });
+
+        renderProducts(filteredProducts);
+    }
+
+    sortSelect.addEventListener("change", filterAndSortProducts);
+    priceFilter.addEventListener("input", filterAndSortProducts);
+
+    filterAndSortProducts();
+});
+</script>
 {% include 'footer.html' %}
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
 </html>

@@ -60,14 +60,14 @@ src="https://www.facebook.com/tr?id=667508889037580&ev=PageView&noscript=1"
         <!-- PRODUCT DETAILS -->
         <div style="padding-left: 40px" class="col-md-6">
             <h1 class="product-title">{{ candle.name }}</h1>
-            {% if candle.promotion != 0 %}
+            {% if candle.promotion_price != 0 %}
             	<div class="price-container">
-                    <p class="old-price">{{ candle.price }} ЛВ.</p>
+                    <p class="old-price">{{ candle.price|floatformat:2 }} ЛВ.</p>
                     <span class="arrow">→</span>
-                    <p class="new-price">{{ candle.promotion_price }} ЛВ.</p>
+                    <p class="new-price">{{ candle.promotion_price|floatformat:2 }} ЛВ.</p>
                 </div>
                 {% else %}
-                <p class="product-price">{{ candle.price }} ЛВ.</p>
+                <p class="product-price">{{ candle.price|floatformat:2 }} ЛВ.</p>
             {% endif %}
             <p class="product-description">
                 {{ candle.description }}
