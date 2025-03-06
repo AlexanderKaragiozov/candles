@@ -1,3 +1,4 @@
+import random
 from operator import index
 
 from django.db.models import Count
@@ -27,9 +28,11 @@ def home(request):
         candle = Candle.objects.get(id=candle['candle'])
         most_sold.append(candle)
     promotions = Candle.objects.filter(promotion_price__gt=0)[:3]
-    print(promotions)
 
-    return render(request,'index.html',{'candles':last_3_candles,'most_ordered':most_sold,'MEDIA_URL': settings.MEDIA_URL,"promotions":promotions})
+    # gallery pull 6 images
+    gallery_first_3 = Gallery.objects.all()[:Gallery.objects.count()]
+
+    return render(request,'index.html',{'candles':last_3_candles,'most_ordered':most_sold,'MEDIA_URL': settings.MEDIA_URL,"promotions":promotions, 'gallery_first_3':gallery_first_3})
 
 def gallery(request):
     gallery = Gallery.objects.all()

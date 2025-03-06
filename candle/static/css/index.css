@@ -5,7 +5,12 @@
         padding: 10px;
         border-radius: 5px;
     }
-body { background-color: #f8f9fa; color: #f8f9fa; font-family: Arial, sans-serif; }
+body {
+    background-color: #e7dddd;
+
+    color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
 .hero { background-size: cover; color: white; padding: 100px 0; text-align: center; }
 .product img { width: 100%; border-radius: 10px; }
 .testimonial { background: #f8f9fa; padding: 50px 0; }
@@ -138,9 +143,13 @@ html, body {
     .col-md-4{
         padding-bottom: 15px !important;
     }
+
 }
-/* Styling for the gallery invite section */
-/* Styling for the gallery invite section */
+@media screen and (max-width: 991px){
+    .mystery-button {
+        width: 100% !important;
+    }
+}
 .gallery-invite {
     background-color: #fef5e7;  /* Match the soft cream background like other sections */
     padding: 40px 0;
@@ -184,6 +193,8 @@ html, body {
     color: #fff;
     transform: scale(1.05);  /* Slightly enlarge the button on hover */
 }
+
+
 
 .button-container {
     display: flex;
@@ -401,3 +412,70 @@ background: linear-gradient(240deg, rgba(0,210,255,1) 0%, rgba(253,29,29,1) 55%,
       font-weight: bolder;
       margin: 0;
   }
+.mistery:hover{
+    background: white;
+    color: black;
+}
+
+.mystery-section {
+            background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(83,56,0,1) 100%);
+            padding: 60px 20px;
+        }
+        .mystery-text {
+            color: white;
+            font-size: 1.3rem;
+
+        }
+        .mystery-button {
+            color: deepskyblue;
+            background: rgba(8,2,1,0.9);
+            border: 2px solid deepskyblue;
+            padding: 1.2rem;
+            border-radius: 40px;
+            width: 100%;
+            max-width: 300px;
+            font-family: fantasy;
+            font-size: 1.4rem;
+        }
+        .mystery-button:hover{
+            color: white;
+            background: rgba(45, 44, 44, 0.9);
+            border: 2px solid deepskyblue;
+            padding: 1.2rem;
+            border-radius: 40px;
+            width: 100%;
+
+        }
+        .mystery-img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 20px;
+        }
+.blink {
+            animation: blink-animation 1.5s infinite alternate ease-in-out;
+        }
+
+        /*@keyframes blink-animation {*/
+        /*    0% { opacity: 1; transform: scale(1); color: red; }*/
+        /*    25% { color: orange; }*/
+        /*    50% { opacity: 0.5; transform: scale(1.1); color: yellow; }*/
+        /*    75% { color: green; }*/
+        /*    100% { opacity: 0.2; transform: scale(1); color: blue; }*/
+        /*}*/
+         @keyframes blink-animation {
+            0% { opacity: 1; transform: scale(1); color: #ff0000; } /* Bright Red */
+            25% { opacity: 0.75; color: #ff9900; } /* Neon Orange */
+            50% { opacity: 0.5; transform: scale(1.1); color: #ffff00; } /* Electric Yellow */
+            75% { opacity: 0.75; color: #00ff00; } /* Neon Green */
+            100% { opacity: 1; transform: scale(1); color: #00ffff; } /* Bright Cyan */
+        }
+ .neon-glow {
+  border: 2px solid #03A9F4; /* initial border color */
+  transition: border-color 0.5s ease-in-out; /* transition effect */
+}
+
+.neon-glow:hover {
+  border-color: #03A9F4; /* hover border color */
+  box-shadow: 0 0 10px #03A9F4, 0 0 10px #03A9F4, 0 0 10px #03A9F4; /* neon glow effect */
+  transition: box-shadow 0.5s ease-in-out; /* transition effect */
+}

@@ -41,9 +41,36 @@ src="https://www.facebook.com/tr?id=667508889037580&ev=PageView&noscript=1"
             Изработени ръчно с грижа и любов.
         </p>
         <br>
-        <a href="#most_sold" class="btn-custom btn-lg mt-3">Разгледай сега</a>
+{#        <a href="#most_sold" class="btn-custom btn-lg mt-3">Разгледай сега</a>#}
     </div>
 </section>
+
+<div class="mystery-section container-fluid">
+    <!-- Center content with a normal container -->
+    <div class="container text-center">
+        <h1 style="" class="text-white fw-bold">🎁 МИСТЕРИОЗНА МЕСЕЧНА КУТИЯ 🎁</h1>
+        <h2 style="font-family: fantasy;font-size: 4rem" class="blink">25 дена 10 часа и 25 мин.</h2>
+        <div class="row align-items-center mt-4">
+            <div class="col-lg-6"><p class="mystery-text">
+    Всеки месец ти поднасяме нова свещна изненада, която ще те впечатли с уникален аромат и стил, създаден специално за теб. 🔮
+    <br><br>
+    ☛ Перфектен избор за подарък — за теб или за човек, когото обичаш!
+    <br><br>
+    🕰 Не чакай — поръчай сега, докато офертата е на живо! ⏳
+</p>
+
+                <h1 style="color: white;font-weight: bold;text-decoration: underline;margin-top: 20px;margin-bottom: 20px">ЦЕНА: 30 лв.</h1>
+            </div>
+            <div class="col-lg-6 text-center">
+                <img class="mystery-img img-fluid" src="{{ MEDIA_URL }}MonthlyPackage.jpg" alt="Мистериозна кутия">
+            </div>
+             <button style="width: 50%" class="mystery-button mt-4 neon-glow">Поръчай</button>
+        </div>
+
+
+    </div>
+</div>
+
 <div class="container py-5"><h2
 id="most_sold"
  class="text-center md-4 ">🔥НАЙ-ПРОДАВАНИ🔥</h2>
@@ -199,9 +226,20 @@ id="promos"
 <section class="gallery-invite">
     <div class="container">
         <h2 style="font-family: Arial">РАЗГЛЕДАЙТЕ НАШАТА ГАЛЕРИЯ</h2>
-        <a href="{% url 'gallery' %}" class="btn-invite">към галерия</a>
+        {% for img in gallery_first_3 %}
+            <img style="width: 95px; mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 10%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0) 100%);"
+     src="{{ MEDIA_URL }}{{ img.image }}"
+     alt="">
+        {% endfor %}
+
+        <div style="margin-top: 2rem">
+            <a href="{% url 'gallery' %}" class="btn-invite">към галерия</a>
+        </div>
     </div>
 </section>
+
+
+
 
 <!-- FAQ Section -->
 <div class="container py-5" id="faq">
@@ -258,6 +296,7 @@ id="promos"
     <img style="max-width: 100%; height: auto; max-width: 400px; max-height: 300px;" src="{{ MEDIA_URL }}/reviews/review6.jpg" alt="">
     <img style="max-width: 100%; height: auto; max-width: 310px; max-height: 350px;" src="{{ MEDIA_URL }}/reviews/review7.jpg" alt="">
     <img style="max-width: 100%; height: auto; width: 350px;" src="{{ MEDIA_URL }}/reviews/review8.png" alt="">
+    <img style="max-width: 100%; height: auto; width: auto;" src="{{ MEDIA_URL }}/reviews/review9.png" alt="">
 </div>
 
 
