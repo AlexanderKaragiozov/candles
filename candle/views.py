@@ -297,13 +297,12 @@ def place_order(request):
             # request.session["cart"] = {}
             spreadsheet.append_to_sheet(SPREADSHEET_ROW)
 
-            return redirect("order_complete", order_url_code)
+            return render(request,"order_complete.html")
  # Redirect to an order success page
 
     return redirect("home")
 
-def order_complete(request,order_url_code):
-    return render(request,"order_complete.html",dict(order_url_code=order_url_code))
+
 
 def request_help(request):
     if request.method == "POST":
