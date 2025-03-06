@@ -123,3 +123,27 @@
       font-weight: bolder;
       margin: 0;
   }
+/*.card-img-top{*/
+/*    width: 40%;*/
+/*    height: 40%;*/
+/*    object-fit: contain !important;*/
+/*}*/
+
+ .button-container {
+        bottom: -50px;
+        transition: bottom 0.3s ease-in-out, opacity 0.3s ease-in-out;
+        opacity: 0;
+    }
+
+    .card:hover .button-container {
+        bottom: 20px; /* Adjust as needed */
+        opacity: 1;
+    }
+
+    .product-button {
+        background: rgba(0, 0, 0, 0.5);
+        border: none;
+    }
+    .product-button:hover {
+        transform: scale(1.1);
+    }
