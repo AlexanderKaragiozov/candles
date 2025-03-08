@@ -43,21 +43,28 @@ src="https://www.facebook.com/tr?id=667508889037580&ev=PageView&noscript=1"
             </a>
             <div style="margin-bottom: 1.5rem" class="row mt-3">
                 <!-- SMALL IMAGES -->
-                <div class="col-4">
+                {% if candle.image_2 %}
+                	<div class="col-4">
                     <a href="{{ candle.image_2.url }}" data-bs-toggle="modal" data-bs-target="#imageModal{{ forloop.counter }}">
                         <img src="{{ candle.image_2.url }}" alt="{{ candle.name }}" class="img-fluid small-image">
                     </a>
                 </div>
-                <div class="col-4">
+                {% endif %}
+
+                {% if candle.image_3 %}
+                	<div class="col-4">
                     <a href="{{ candle.image_3.url }}" data-bs-toggle="modal" data-bs-target="#imageModal{{ forloop.counter }}">
                         <img src="{{ candle.image_3.url }}" alt="{{ candle.name }}" class="img-fluid small-image">
                     </a>
                 </div>
-                <div class="col-4">
+                {% endif %}
+                {% if candle.image_4 %}
+                	<div class="col-4">
                     <a href="{{ candle.image_4.url }}" data-bs-toggle="modal" data-bs-target="#imageModal{{ forloop.counter }}">
                         <img src="{{ candle.image_4.url }}" alt="{{ candle.name }}" class="img-fluid small-image">
                     </a>
                 </div>
+                {% endif %}
             </div>
         </div>
 
