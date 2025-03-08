@@ -51,7 +51,7 @@ src="https://www.facebook.com/tr?id=667508889037580&ev=PageView&noscript=1"
     <!-- Center content with a normal container -->
     <div class="container text-center">
         <h1 style="" class="text-white fw-bold">🎁 МИСТЕРИОЗНА МЕСЕЧНА КУТИЯ 🎁</h1>
-        <h2 style="font-family: 'Droid Sans' ;font-size: 4rem" class="blink">25 дена 10 часа и 25 мин.</h2>
+        <h2 id="remaining-time" style="font-family: 'Droid Sans'; font-size: 4rem" class="blink"></h2>
         <div class="row align-items-center mt-4">
             <div class="col-lg-6"><p class="mystery-text">
     Всеки месец ти поднасяме нова свещна изненада, която ще те впечатли с уникален аромат и стил, създаден специално за теб. 🔮
@@ -61,12 +61,16 @@ src="https://www.facebook.com/tr?id=667508889037580&ev=PageView&noscript=1"
     🕰 Не чакай — поръчай сега, докато офертата е на живо! ⏳
 </p>
 
-                <h1 style="color: white;font-weight: bold;text-decoration: underline;margin-top: 20px;margin-bottom: 20px">ЦЕНА: 30 лв.</h1>
+                <h1 style="color: white;font-weight: bold;text-decoration: underline;margin-top: 20px;margin-bottom: 20px">ЦЕНА:
+                    {{ monthly_package.price }} лв.</h1>
             </div>
             <div class="col-lg-6 text-center">
                 <img class="mystery-img img-fluid" src="{{ MEDIA_URL }}MonthlyPackage.jpg" alt="Мистериозна кутия">
             </div>
-             <button style="width: 50%" class="mystery-button mt-4 neon-glow">Поръчай</button>
+            <form action="{% url 'fast_buy' monthly_package.id %}" method="post">
+                {% csrf_token %}
+                <button style="width: 50%" class="mystery-button mt-4 neon-glow">Поръчай</button>
+            </form>
         </div>
 
 
@@ -334,6 +338,48 @@ src="https://www.facebook.com/tr?id=667508889037580&ev=PageView&noscript=1"
     {% endif %}
 </div>
 </div>
+
+    <script type="text/javascript">
+    // Pass the end_date in the correct format to JavaScript
+    var endDate = new Date("{{ monthly_package.end_date|date:'Y-m-d' }}T23:59:59Z");
+
+    console.log("End Date: " + endDate);
+    console.log("Current Date: " + new Date());
+
+    var currentDate = new Date();
+
+    // Function to calculate and update the remaining time
+    function updateRemainingTime() {
+        var timeDiff = endDate - currentDate;
+
+        if (isNaN(endDate.getTime())) {
+            console.log("Invalid end date");
+            document.getElementById("remaining-time").innerHTML = "Invalid date";
+        } else {
+            if (timeDiff > 0) {
+                var days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+
+                var remainingTime = days + " дена " + hours + " часа и " + minutes + " минути";
+                document.getElementById("remaining-time").innerHTML = remainingTime;
+            } else {
+                document.getElementById("remaining-time").innerHTML = "Изтекло време";
+            }
+        }
+    }
+
+    // Update the remaining time every minute (60000ms)
+    setInterval(function() {
+        currentDate = new Date();
+        updateRemainingTime();
+    }, 15000);
+
+    // Initial call to display the countdown immediately
+    updateRemainingTime();
+</script>
+
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

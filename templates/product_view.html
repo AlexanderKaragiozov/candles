@@ -223,19 +223,21 @@ background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 
  border-radius: 20px; margin-bottom: 2rem;
 ">
 
-            <div class="row">
-            <div class="col-md-3">
+            <div class="row d-flex flex-row justify-content-start">
+        {% for others in other_candle %}
+            <div class="col-md-3 mb-4">
                 <div class="card position-relative" style="height: 80%;">
-                    {% for others in other_candle %}
-                        <img src="{{ others.image.url }}" class="card-img-top" alt="Product 1">
-                            <div class="card-body position-absolute w-100 text-center button-container" style="bottom: -50px;">
-                                <a href="#" class="btn btn-primary product-button " style="background: rgba(0, 0, 0, 0.5); border: none;width: 100%">Виж</a>
-                            </div>
-                    {% endfor %}
-
+                    <img style="width: 100%" src="{{ others.image.url }}" class="card-img-top" alt="Product 1">
+                    <div class="card-body position-absolute w-100 text-center button-container" style="bottom: -50px;">
+                        <form action="{% url 'view_product' others.id %}">
+                            <button  class="btn btn-primary product-button" style="background: rgba(0, 0, 0, 0.5); border: none;width: 100%">Виж</button>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
+        {% endfor %}
+    </div>
+
 
 
 </div>

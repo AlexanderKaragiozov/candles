@@ -38,7 +38,8 @@ class Candle(models.Model):
     image_3 = models.ImageField(upload_to='candles/', blank=True, null=True)  # Additional image
     image_4 = models.ImageField(upload_to='candles/', blank=True, null=True)  # Additional image
 
-
+    monthly = models.BooleanField(default=False)
+    end_date = models.DateField(null=True, blank=True)
     # Correct way to generate random reviews at save-time
     reviews = models.IntegerField(default=0)
 
@@ -77,4 +78,7 @@ class Contacts(models.Model):
     problem = models.TextField()
     def __str__(self):
         return {self.title}
+
+
+
 

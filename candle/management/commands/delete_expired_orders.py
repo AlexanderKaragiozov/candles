@@ -8,8 +8,11 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         expired_orders = CandleOrder.objects.filter(deadline__lt=now(),confirmed=False)
-        deleted_count, _ = expired_orders.delete()
+
         for order in expired_orders:
             if not order.confirmed:
+                order.candle.quantity += order.quantity
+                order.candle.save()
                 delete_deadline_orders(order.id)
+        deleted_count, _ = expired_orders.delete()
         self.stdout.write(self.style.SUCCESS(f"Deleted {deleted_count} expired orders."))

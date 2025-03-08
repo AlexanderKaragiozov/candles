@@ -17,22 +17,24 @@ from collections import Counter
 # Create your views here.
 
 def home(request):
-    last_3_candles = Candle.objects.order_by('-date_added')[:3]
+    last_3_candles = Candle.objects.order_by('-date_added').exclude(monthly=True)[:3]
+    monthly_package = Candle.objects.get(monthly=True)
+
     most_common = (
         CandleOrder.objects.values('candle')  # Group by candle ID
         .annotate(count=Count('candle'))  # Count occurrences
         .order_by('-count')[:3]  # Get the top 3 most common
     )
     most_sold:list= []
-    for candle in most_common:
-        candle = Candle.objects.get(id=candle['candle'])
-        most_sold.append(candle)
+    # for candle in most_common:
+    #     candle = Candle.objects.get(id=candle['candle'])
+    #     most_sold.append(candle)
     promotions = Candle.objects.filter(promotion_price__gt=0)[:3]
 
     # gallery pull 6 images
     gallery_first_3 = Gallery.objects.all()[:Gallery.objects.count()]
 
-    return render(request,'index.html',{'candles':last_3_candles,'most_ordered':most_sold,'MEDIA_URL': settings.MEDIA_URL,"promotions":promotions, 'gallery_first_3':gallery_first_3})
+    return render(request,'index.html',{'candles':last_3_candles,'most_ordered':most_sold,'MEDIA_URL': settings.MEDIA_URL,"promotions":promotions, 'gallery_first_3':gallery_first_3,'monthly_package':monthly_package})
 
 def gallery(request):
     gallery = Gallery.objects.all()
@@ -204,16 +206,16 @@ def products(request):
 
 
 def view_product(request,candle_id):
-    other_candle = Candle.objects.all()[0:4]
+    other_candle = Candle.objects.all().exclude(monthly=True)[0:4]
     candle = Candle.objects.get(pk=candle_id)
 
     return render(request,'product_view.html', {'candle':candle,'MEDIA_URL': settings.MEDIA_URL,'other_candle':other_candle})
 
-def fast_buy(request,candle_id):
+def fast_buy(request, candle_id):
     if request.method == "POST":
-
         quantity = int(request.POST.get("quantity", 1))  # Ensure quantity is an integer
         print(f"{candle_id} >>>>>>>>> {quantity}")
+
         # Get existing cart data from cookies
         cart = request.COOKIES.get("cart", "{}")
         try:
@@ -224,10 +226,7 @@ def fast_buy(request,candle_id):
         # Ensure the value is an integer before adding
         cart[str(candle_id)] = cart.get(str(candle_id), 0) + quantity
 
-        # Create response without the message
-        response = JsonResponse({"cart": cart})
-
-        # Store the updated cart in cookies (valid for 7 days)
+        # Create response with redirect to cart page
         response = redirect("cart_view")  # Redirect to cart page
 
         # Set the cookie properly
@@ -239,7 +238,7 @@ def fast_buy(request,candle_id):
             samesite="Lax"
         )
 
-        return response  # Important: return this response
+        return response  # Return the redirect response to the cart view
 
 
 def place_order(request):
@@ -280,6 +279,8 @@ def place_order(request):
             for candle_id, quantity in cart.items():
                 try:
                     candle = Candle.objects.get(id=candle_id)  # Ensure candle exists
+                    candle.quantity -= quantity
+                    candle.save()
                     new_order = CandleOrder.objects.create(
                         customer=customer,
                         candle=candle,
