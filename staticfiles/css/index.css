@@ -12,7 +12,11 @@ body {
     font-family: Arial, sans-serif;
 }
 .hero { background-size: cover; color: white; padding: 100px 0; text-align: center; }
-.product img { width: 100%; border-radius: 10px; }
+.product img {
+    width: 100%;
+    border-radius: 10px;
+    border: dimgrey 1px solid;
+}
 .testimonial { background: #f8f9fa; padding: 50px 0; }
 .footer { background: #000; color: white; padding: 20px 0; text-align: center; }
 html, body {
@@ -434,7 +438,7 @@ background: linear-gradient(240deg, rgba(0,210,255,1) 0%, rgba(253,29,29,1) 55%,
             border-radius: 40px;
             width: 100%;
             max-width: 300px;
-            font-family: fantasy;
+            font-family: 'Droid Sans';
             font-size: 1.4rem;
         }
         .mystery-button:hover{
@@ -479,3 +483,46 @@ background: linear-gradient(240deg, rgba(0,210,255,1) 0%, rgba(253,29,29,1) 55%,
   box-shadow: 0 0 10px #03A9F4, 0 0 10px #03A9F4, 0 0 10px #03A9F4; /* neon glow effect */
   transition: box-shadow 0.5s ease-in-out; /* transition effect */
 }
+
+
+.seemore{
+    background: white;
+    border: 1px black solid;
+    padding: 12px;
+    border-radius: 10px;
+    color: black;
+    font-family: Candara;
+    font-size: 1.1rem;
+}
+.seemore:hover{
+    background: black;
+    color: white;
+    border: #b462fd 2px solid;
+    text-decoration: none;
+}
+.breathing-effect {
+      background: rgb(255, 149, 0);
+      background: radial-gradient(circle, rgba(255, 149, 0, 1) 8%, rgba(245, 0, 0, 1) 100%);
+        text-align: center;
+      border-radius: 20px;
+
+      color: white;
+      font-weight: bold;
+
+
+
+      animation: breathing 2s infinite ease-in-out;
+      box-shadow: 0 0 15px rgba(255, 149, 0, 0.05), 0 0 25px rgba(245, 0, 0, 0.3); /* Glowing effect around the box */
+    }
+
+    @keyframes breathing {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05); /* Slightly grow */
+      }
+      100% {
+        transform: scale(1); /* Back to normal size */
+      }
+    }

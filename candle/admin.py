@@ -14,7 +14,8 @@ class GalleryAdmin(admin.ModelAdmin):
 
 @admin.register(CandleOrder)
 class CandleOrder(admin.ModelAdmin):
-    pass
+    list_display = ('customer','candle','quantity','confirmed','order_date')
+
 
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):

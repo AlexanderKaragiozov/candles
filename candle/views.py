@@ -204,9 +204,10 @@ def products(request):
 
 
 def view_product(request,candle_id):
+    other_candle = Candle.objects.all()[0:4]
     candle = Candle.objects.get(pk=candle_id)
 
-    return render(request,'product_view.html', {'candle':candle,'MEDIA_URL': settings.MEDIA_URL})
+    return render(request,'product_view.html', {'candle':candle,'MEDIA_URL': settings.MEDIA_URL,'other_candle':other_candle})
 
 def fast_buy(request,candle_id):
     if request.method == "POST":
@@ -270,7 +271,7 @@ def place_order(request):
                     "address": ''
                 }
             )
-            SPREADSHEET_ROW = [first_name, last_name,'', phone, city,'']
+
             cart = request.COOKIES.get("cart")
             cart = json.loads(cart)
             order = ''
@@ -279,17 +280,19 @@ def place_order(request):
             for candle_id, quantity in cart.items():
                 try:
                     candle = Candle.objects.get(id=candle_id)  # Ensure candle exists
-                    CandleOrder.objects.create(
+                    new_order = CandleOrder.objects.create(
                         customer=customer,
                         candle=candle,
-                        quantity=quantity
+                        quantity=quantity,
+                        confirmed=False
                     )
+
                     order += f"{candle.name}-x{quantity} "
                     order_url_code += candle.id * quantity * 100
                 except Candle.DoesNotExist:
                     print(f"Candle with ID {candle_id} not found.")
             order_url_code= str(order_url_code) + f"{customer.first_name.lower()}x{customer.last_name.lower()}"
-
+            SPREADSHEET_ROW = [new_order.id,first_name, last_name, '', phone, city, '']
             SPREADSHEET_ROW.append(order)
             SPREADSHEET_ROW.append("НЕ")
             SPREADSHEET_ROW.append('НЕ')

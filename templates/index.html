@@ -41,15 +41,17 @@ src="https://www.facebook.com/tr?id=667508889037580&ev=PageView&noscript=1"
             Изработени ръчно с грижа и любов.
         </p>
         <br>
-{#        <a href="#most_sold" class="btn-custom btn-lg mt-3">Разгледай сега</a>#}
+        <a href="#most_sold" class="btn-custom btn-lg mt-3">Разгледай сега</a>
     </div>
+
 </section>
+
 
 <div class="mystery-section container-fluid">
     <!-- Center content with a normal container -->
     <div class="container text-center">
         <h1 style="" class="text-white fw-bold">🎁 МИСТЕРИОЗНА МЕСЕЧНА КУТИЯ 🎁</h1>
-        <h2 style="font-family: fantasy;font-size: 4rem" class="blink">25 дена 10 часа и 25 мин.</h2>
+        <h2 style="font-family: 'Droid Sans' ;font-size: 4rem" class="blink">25 дена 10 часа и 25 мин.</h2>
         <div class="row align-items-center mt-4">
             <div class="col-lg-6"><p class="mystery-text">
     Всеки месец ти поднасяме нова свещна изненада, която ще те впечатли с уникален аромат и стил, създаден специално за теб. 🔮
@@ -71,47 +73,52 @@ src="https://www.facebook.com/tr?id=667508889037580&ev=PageView&noscript=1"
     </div>
 </div>
 
-<div class="container py-5"><h2
-id="most_sold"
- class="text-center md-4 ">🔥НАЙ-ПРОДАВАНИ🔥</h2>
-   <div id="mostSold" class="row">
-    {% for candle in most_ordered %}
-    <div class="col-md-4">
-        <div class="product text-center">
-            <img class="gallery-img" style="width: 300px;margin-top: 20px" src="../media/{{ candle.image }}" alt="{{ candle.name }}" data-id="{{ candle.id }}" data-name="{{ candle.name }}" data-price="{{ candle.price }}" data-description="{{ candle.description }}" data-image="../media/{{ candle.image }}">
-            <h5 class="mt-3">{{ candle.name }}</h5>
-            {% if candle.promotion_price != 0 %}
-            	<div class="price-container">
-                    <p class="old-price">{{ candle.price|floatformat:2 }} ЛВ.</p>
-                    <span class="arrow">→</span>
-                    <p class="new-price">{{ candle.promotion_price|floatformat:2 }} ЛВ.</p>
-                </div>
-
-                {% else %}
-                <p class="new-price" style="font-size: 20px; font-weight: bold;">{{ candle.price|floatformat:2 }} ЛВ.</p>
-            {% endif %}
-            <div class="button-container">
-                <form action="{% url 'view_product' candle.id %}" method="get">
-                    {% csrf_token %}
-                    <button style="background-color: #515151; color: white" class="btn-custom">Виж</button>
-                </form>
-
-
-
-                <form action="{% url 'fast_buy' candle.id %}" method="POST" class="add-to-cart-form">
-                    {% csrf_token %}
-                    <input type="hidden" name="quantity" value="1">
-                    <button type="submit" class="btn-custom">КУПИ</button>
-                </form>
-
-
-
-            </div>
-        </div>
-    </div>
-    {% endfor %}
-</div>
+{#<div class="container py-5"><h2#}
+{#id="most_sold"#}
+{# class="text-center md-4 ">🔥НАЙ-ПРОДАВАНИ🔥</h2>#}
+{#   <div id="mostSold" class="row">#}
+{#    {% for candle in most_ordered %}#}
+{#    <div class="col-md-4">#}
+{#        <div class="product text-center">#}
+{#            <img class="gallery-img" style="width: 300px;margin-top: 20px" src="../media/{{ candle.image }}" alt="{{ candle.name }}" data-id="{{ candle.id }}" data-name="{{ candle.name }}" data-price="{{ candle.price }}" data-description="{{ candle.description }}" data-image="../media/{{ candle.image }}">#}
+{#            <h5 class="mt-3">{{ candle.name }}</h5>#}
+{#            {% if candle.promotion_price != 0 %}#}
+{#            	<div class="price-container">#}
+{#                    <p class="old-price">{{ candle.price|floatformat:2 }} ЛВ.</p>#}
+{#                    <span class="arrow">→</span>#}
+{#                    <p class="new-price">{{ candle.promotion_price|floatformat:2 }} ЛВ.</p>#}
+{#                </div>#}
+{##}
+{#                {% else %}#}
+{#                <p class="new-price" style="font-size: 20px; font-weight: bold;">{{ candle.price|floatformat:2 }} ЛВ.</p>#}
+{#            {% endif %}#}
+{#            <div class="button-container">#}
+{#                <form action="{% url 'view_product' candle.id %}" method="get">#}
+{#                    {% csrf_token %}#}
+{#                    <button style="background-color: #515151; color: white" class="btn-custom">Виж</button>#}
+{#                </form>#}
+{##}
+{##}
+{##}
+{#                <form action="{% url 'fast_buy' candle.id %}" method="POST" class="add-to-cart-form">#}
+{#                    {% csrf_token %}#}
+{#                    <input type="hidden" name="quantity" value="1">#}
+{#                    <button type="submit" class="btn-custom">КУПИ</button>#}
+{#                </form>#}
+{##}
+{##}
+{##}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#    {% endfor %}#}
+{#</div>#}
 <div class="container py-5"><h2 id="last_added" class="text-center md-4">🆕ПОСЛЕДНО ДОБАВЕНИ🆕</h2>
+
+{#    <div style="text-align: right;margin-top: 1rem">#}
+{#        <a href=""class="seemore" style="">Виж всички..</a>#}
+{#    </div>#}
+
    <div id="lastAdded" class="row">
     {% for candle in candles %}
     <div class="col-md-4">
@@ -123,10 +130,12 @@ id="most_sold"
                     <p class="old-price">{{ candle.price|floatformat:2 }} ЛВ.</p>
                     <span class="arrow">→</span>
                     <p class="new-price">{{ candle.promotion_price|floatformat:2 }} ЛВ.</p>
+
                 </div>
 
                 {% else %}
                 <p class="new-price" style="font-size: 20px; font-weight: bold">{{ candle.price|floatformat:2 }} ЛВ.</p>
+                <p class="breathing-effect">оставащи бр.{{ candle.quantity }}</p>
             {% endif %}
 
             <div class="button-container">
@@ -150,41 +159,41 @@ id="most_sold"
     </div>
     {% endfor %}
 </div>
-<div class="container py-5"><h2
-id="promos"
- class="text-center md-4 ">🏷️ПОРМOЦИИ🏷️</h2>
-   <div id="mostSold" class="row">
-    {% for candle in promotions %}
-    <div class="col-md-4">
-        <div class="product text-center">
-            <img class="gallery-img" style="width: 300px;margin-top: 20px" src="../media/{{ candle.image }}" alt="{{ candle.name }}" data-id="{{ candle.id }}" data-name="{{ candle.name }}" data-price="{{ candle.price }}" data-description="{{ candle.description }}" data-image="../media/{{ candle.image }}">
-            <h5 class="mt-3">{{ candle.name }}</h5>
-            <div class="price-container">
-    <p class="old-price">{{ candle.price|floatformat:2 }} ЛВ.</p>
-    <span class="arrow">→</span>
-    <p class="new-price">{{ candle.promotion_price|floatformat:2 }} ЛВ.</p>
-</div>
-            <div class="button-container">
-                <form action="{% url 'view_product' candle.id %}" method="get">
-                    {% csrf_token %}
-                    <button style="background-color: #515151; color: white" class="btn-custom">Виж</button>
-                </form>
-
-
-
-                <form action="{% url 'fast_buy' candle.id %}" method="POST" class="add-to-cart-form">
-                    {% csrf_token %}
-                    <input type="hidden" name="quantity" value="1">
-                    <button type="submit" class="btn-custom">КУПИ</button>
-                </form>
-
-
-
-            </div>
-        </div>
-    </div>
-    {% endfor %}
-</div>
+{#<div class="container py-5"><h2#}
+{#id="promos"#}
+{# class="text-center md-4 ">🏷️ПОРМOЦИИ🏷️</h2>#}
+{#   <div id="mostSold" class="row">#}
+{#    {% for candle in promotions %}#}
+{#    <div class="col-md-4">#}
+{#        <div class="product text-center">#}
+{#            <img class="gallery-img" style="width: 300px;margin-top: 20px" src="../media/{{ candle.image }}" alt="{{ candle.name }}" data-id="{{ candle.id }}" data-name="{{ candle.name }}" data-price="{{ candle.price }}" data-description="{{ candle.description }}" data-image="../media/{{ candle.image }}">#}
+{#            <h5 class="mt-3">{{ candle.name }}</h5>#}
+{#            <div class="price-container">#}
+{#    <p class="old-price">{{ candle.price|floatformat:2 }} ЛВ.</p>#}
+{#    <span class="arrow">→</span>#}
+{#    <p class="new-price">{{ candle.promotion_price|floatformat:2 }} ЛВ.</p>#}
+{#</div>#}
+{#            <div class="button-container">#}
+{#                <form action="{% url 'view_product' candle.id %}" method="get">#}
+{#                    {% csrf_token %}#}
+{#                    <button style="background-color: #515151; color: white" class="btn-custom">Виж</button>#}
+{#                </form>#}
+{##}
+{##}
+{##}
+{#                <form action="{% url 'fast_buy' candle.id %}" method="POST" class="add-to-cart-form">#}
+{#                    {% csrf_token %}#}
+{#                    <input type="hidden" name="quantity" value="1">#}
+{#                    <button type="submit" class="btn-custom">КУПИ</button>#}
+{#                </form>#}
+{##}
+{##}
+{##}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#    {% endfor %}#}
+{#</div>#}
 <div class="browse-container">
     <form action="{% url 'products' %}">
         <button style="background: #333333;border: white 2px solid;color: white;" class="browse-button">🔍РАЗГЛЕДАЙ ВСИЧКИ ПРОДУКТИ</button>
@@ -294,7 +303,7 @@ id="promos"
     <img style="max-width: 100%; height: auto; width: 350px;" src="{{ MEDIA_URL }}/reviews/review4.png" alt="">
     <img style="max-width: 100%; height: auto; max-width: 300px; max-height: 300px;" src="{{ MEDIA_URL }}/reviews/review5.jpg" alt="">
     <img style="max-width: 100%; height: auto; max-width: 400px; max-height: 300px;" src="{{ MEDIA_URL }}/reviews/review6.jpg" alt="">
-    <img style="max-width: 100%; height: auto; max-width: 310px; max-height: 350px;" src="{{ MEDIA_URL }}/reviews/review7.jpg" alt="">
+    <img style="max-width: 100%; height: auto; max-width: 310px; max-height: 80px;" src="{{ MEDIA_URL }}/reviews/review7.jpg" alt="">
     <img style="max-width: 100%; height: auto; width: 350px;" src="{{ MEDIA_URL }}/reviews/review8.png" alt="">
     <img style="max-width: 100%; height: auto; width: auto;" src="{{ MEDIA_URL }}/reviews/review9.png" alt="">
 </div>
