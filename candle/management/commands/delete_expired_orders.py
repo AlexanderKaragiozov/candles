@@ -7,8 +7,9 @@ class Command(BaseCommand):
     help = "Deletes expired orders from the CandleOrder table"
 
     def handle(self, *args, **kwargs):
-        expired_orders = CandleOrder.objects.filter(deadline__lt=now())
+        expired_orders = CandleOrder.objects.filter(deadline__lt=now(),confirmed=False)
         deleted_count, _ = expired_orders.delete()
         for order in expired_orders:
-            delete_deadline_orders(order.id)
+            if not order.confirmed:
+                delete_deadline_orders(order.id)
         self.stdout.write(self.style.SUCCESS(f"Deleted {deleted_count} expired orders."))
