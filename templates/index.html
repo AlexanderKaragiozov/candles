@@ -134,9 +134,9 @@ src="https://www.facebook.com/tr?id=667508889037580&ev=PageView&noscript=1"
                     <p class="old-price">{{ candle.price|floatformat:2 }} ЛВ.</p>
                     <span class="arrow">→</span>
                     <p class="new-price">{{ candle.promotion_price|floatformat:2 }} ЛВ.</p>
-                    <p class="breathing-effect">оставащи бр.{{ candle.quantity }}</p>
-                </div>
 
+                </div>
+                <p class="breathing-effect">оставащи бр.{{ candle.quantity }}</p>
                 {% else %}
                 <p class="new-price" style="font-size: 20px; font-weight: bold">{{ candle.price|floatformat:2 }} ЛВ.</p>
                 <p class="breathing-effect">оставащи бр.{{ candle.quantity }}</p>

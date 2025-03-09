@@ -277,3 +277,19 @@
     font-weight: bold;
     font-size: 1.4rem;
 }
+
+ @media (max-width: 600px) {
+        .button-group {
+            display: flex;
+            flex-direction: column;  /* Stack elements vertically */
+            align-items: stretch;    /* Make buttons take full width */
+        }
+        .breathing-effect{
+            width: 100%;
+        }
+        .button-35,
+        .button-64 {
+            width: 100%;  /* Ensure both buttons take the full width */
+            margin-bottom: 10px;  /* Add space between buttons */
+        }
+    }

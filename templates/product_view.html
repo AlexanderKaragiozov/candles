@@ -33,15 +33,17 @@ src="https://www.facebook.com/tr?id=667508889037580&ev=PageView&noscript=1"
 {% include 'navbar.html' %}
 {% if messages %}
     {% for message in messages %}
-        <div id="added_to_cart" class="alert alert-success alert-dismissible fade show" role="alert">
+        <div id="added_to_cart" class="alert
+            {% if message.tags == 'error' %}alert-danger{% else %}alert-success{% endif %}
+            alert-dismissible fade show" role="alert">
             {{ message }}
             <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
-
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
     {% endfor %}
 {% endif %}
+
 <div style="margin-top: 7rem !important;" class="container mt-5">
     <div class="row">
         <!-- BIG IMAGE -->
@@ -162,45 +164,53 @@ src="https://www.facebook.com/tr?id=667508889037580&ev=PageView&noscript=1"
 
 
 <script>
-    // Handle increase and decrease of quantity
     document.getElementById('decrease-btn').addEventListener('click', function() {
         var quantity = document.getElementById('quantity');
         var quantityInput = document.getElementById('quantity-input');
 
         var currentQuantity = parseInt(quantity.innerText);
 
-        if (currentQuantity > 1) { // Ensure quantity does not go below 1
+        if (currentQuantity > 1) {
             currentQuantity -= 1;
             quantity.innerText = currentQuantity;
-            quantityInput.value = currentQuantity;  // Update hidden input value
+            quantityInput.value = currentQuantity;
+            document.getElementById('increase-btn').disabled = false; // Enable increase button if quantity is not max
         }
     });
 
     document.getElementById('increase-btn').addEventListener('click', function() {
         var quantity = document.getElementById('quantity');
         var quantityInput = document.getElementById('quantity-input');
+        var maxQuantity = parseInt("{{ candle.quantity }}"); // Get the max available quantity
 
         var currentQuantity = parseInt(quantity.innerText);
 
-        currentQuantity += 1;
-        quantity.innerText = currentQuantity;
-        quantityInput.value = currentQuantity;  // Update hidden input value
+        if (currentQuantity < maxQuantity) { // Ensure it doesn't exceed available quantity
+            currentQuantity += 1;
+            quantity.innerText = currentQuantity;
+            quantityInput.value = currentQuantity;
+        }
+
+        // Disable increase button if quantity reaches the max
+        if (currentQuantity >= maxQuantity) {
+            document.getElementById('increase-btn').disabled = true;
+        }
     });
 
-    // When "Buy Now" button is clicked
     document.getElementById('buy-now-btn').addEventListener('click', function() {
-        // Get the quantity value (update this as needed from your UI)
         var quantity = document.getElementById('quantity').innerText;
+        var maxQuantity = parseInt("{{ candle.quantity }}");
 
-        // Update the hidden quantity input value with the current quantity
+        if (parseInt(quantity) > maxQuantity) {
+            alert("Няма достатъчно наличност!");
+            return;
+        }
+
         document.getElementById('quantity-input').value = quantity;
 
-        // Submit the Add to Cart form via AJAX (without reloading the page)
         var form = document.getElementById('cart-form');
-
         var formData = new FormData(form);
 
-        // Send the form data to add to cart
         fetch(form.action, {
             method: 'POST',
             headers: {
@@ -210,10 +220,9 @@ src="https://www.facebook.com/tr?id=667508889037580&ev=PageView&noscript=1"
         })
         .then(response => {
             if (response.ok) {
-                // After successfully adding to cart, redirect to the cart view
                 window.location.href = "{% url 'cart_view' %}";
             } else {
-                alert('There was an error adding the product to the cart');
+                alert('Грешка при добавяне в количката');
             }
         })
         .catch(error => {
@@ -221,6 +230,8 @@ src="https://www.facebook.com/tr?id=667508889037580&ev=PageView&noscript=1"
         });
     });
 </script>
+
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 

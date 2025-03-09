@@ -59,15 +59,32 @@ def add_to_cart(request, candle_id):
         quantity = int(request.POST.get("quantity", 1))  # Ensure quantity is an integer
         print(f"{candle_id} >>>>>>>>> {quantity}")
 
-        # Get existing cart data from cookies
+        # Get the candle object to check available quantity
+        try:
+            candle = Candle.objects.get(id=candle_id)
+        except Candle.DoesNotExist:
+            return JsonResponse({"error": "Candle not found"}, status=404)
+
+        # Get the current cart data from cookies
         cart = request.COOKIES.get("cart", "{}")
         try:
             cart = json.loads(cart)  # Convert JSON string to dictionary
         except json.JSONDecodeError:
             cart = {}
 
-        # Ensure the value is an integer before adding
-        cart[str(candle_id)] = cart.get(str(candle_id), 0) + quantity
+        # Get the current quantity of this candle in the cart (if any)
+        current_quantity_in_cart = cart.get(str(candle_id), 0)
+
+        # Calculate the total quantity after adding the new quantity
+        total_quantity = current_quantity_in_cart + quantity
+
+        # Check if the requested total quantity exceeds the available stock
+        if total_quantity > candle.quantity:
+            messages.error(request, "Не можете да добавите повече от наличното количество в количката")
+            # Redirect to the product view page with the error message
+            return redirect(reverse("view_product", args=[candle_id]))
+        # Update the cart with the new quantity
+        cart[str(candle_id)] = total_quantity
         print(cart)
 
         # Generate the correct URL for redirecting
@@ -156,9 +173,9 @@ def increase_quantity(request, candle_id):
         cart = json.loads(cart)
     except json.JSONDecodeError:
         cart = {}
-
+    max_quantity = Candle.objects.get(pk=candle_id).quantity
     # Increase the quantity of the item
-    if str(candle_id) in cart:
+    if str(candle_id) in cart and max_quantity > int(cart[str(candle_id)]):
         cart[str(candle_id)] += 1  # Increase the quantity
 
     # Save the updated cart in cookies
