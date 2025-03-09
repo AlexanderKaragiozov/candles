@@ -56,9 +56,9 @@ from .models import Candle
 
 def add_to_cart(request, candle_id):
     if request.method == "POST":
-
         quantity = int(request.POST.get("quantity", 1))  # Ensure quantity is an integer
         print(f"{candle_id} >>>>>>>>> {quantity}")
+
         # Get existing cart data from cookies
         cart = request.COOKIES.get("cart", "{}")
         try:
@@ -68,14 +68,18 @@ def add_to_cart(request, candle_id):
 
         # Ensure the value is an integer before adding
         cart[str(candle_id)] = cart.get(str(candle_id), 0) + quantity
-
-        # Create response without the message
-        response = JsonResponse({"cart": cart})
         print(cart)
-        # Store the updated cart in cookies (valid for 7 days)
-        response = redirect("cart_view")  # Redirect to cart page
 
-        # Set the cookie properly
+        # Generate the correct URL for redirecting
+        view = reverse("view_product", args=[candle_id])
+
+        # Add success message
+        messages.success(request, "Успешно добавено в количка")
+
+        # Create a redirect response
+        response = redirect(view + '#added_to_cart')
+
+        # Store the updated cart in cookies (valid for 7 days)
         response.set_cookie(
             "cart",
             json.dumps(cart),
@@ -84,7 +88,7 @@ def add_to_cart(request, candle_id):
             samesite="Lax"
         )
 
-        return response  # Important: return this response
+        return response  # Return the redirect response with the updated cookie
 
     return JsonResponse({"error": "Невалидна заявка"}, status=400)
 
@@ -212,7 +216,7 @@ def view_product(request,candle_id):
     return render(request,'product_view.html', {'candle':candle,'MEDIA_URL': settings.MEDIA_URL,'other_candle':other_candle})
 
 def fast_buy(request, candle_id):
-    if request.method == "POST":
+    if request.method == "GET":
         quantity = int(request.POST.get("quantity", 1))  # Ensure quantity is an integer
         print(f"{candle_id} >>>>>>>>> {quantity}")
 

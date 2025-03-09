@@ -41,16 +41,16 @@ src="https://www.facebook.com/tr?id=667508889037580&ev=PageView&noscript=1"
             Изработени ръчно с грижа и любов.
         </p>
         <br>
-        <a href="#most_sold" class="btn-custom btn-lg mt-3">Разгледай сега</a>
+        <a href="#mystery" class="btn-custom btn-lg mt-3">Разгледай сега</a>
     </div>
 
 </section>
 
 
-<div class="mystery-section container-fluid">
+<div id="mystery" class="mystery-section container-fluid">
     <!-- Center content with a normal container -->
     <div class="container text-center">
-        <h1 style="" class="text-white fw-bold">🎁 МИСТЕРИОЗНА МЕСЕЧНА КУТИЯ 🎁</h1>
+        <h1  style="" class="text-white fw-bold">🎁 МИСТЕРИОЗНА МЕСЕЧНА КУТИЯ 🎁</h1>
         <h2 id="remaining-time" style="font-family: 'Droid Sans'; font-size: 4rem" class="blink"></h2>
         <div class="row align-items-center mt-4">
             <div class="col-lg-6"><p class="mystery-text">
@@ -67,8 +67,8 @@ src="https://www.facebook.com/tr?id=667508889037580&ev=PageView&noscript=1"
             <div class="col-lg-6 text-center">
                 <img class="mystery-img img-fluid" src="{{ MEDIA_URL }}MonthlyPackage.jpg" alt="Мистериозна кутия">
             </div>
-            <form action="{% url 'fast_buy' monthly_package.id %}" method="post">
-                {% csrf_token %}
+            <form action="{% url 'fast_buy' monthly_package.id %}" method="GET">
+{#                {% csrf_token %}#}
                 <button style="width: 50%" class="mystery-button mt-4 neon-glow">Поръчай</button>
             </form>
         </div>
@@ -134,7 +134,7 @@ src="https://www.facebook.com/tr?id=667508889037580&ev=PageView&noscript=1"
                     <p class="old-price">{{ candle.price|floatformat:2 }} ЛВ.</p>
                     <span class="arrow">→</span>
                     <p class="new-price">{{ candle.promotion_price|floatformat:2 }} ЛВ.</p>
-
+                    <p class="breathing-effect">оставащи бр.{{ candle.quantity }}</p>
                 </div>
 
                 {% else %}
@@ -144,14 +144,14 @@ src="https://www.facebook.com/tr?id=667508889037580&ev=PageView&noscript=1"
 
             <div class="button-container">
                 <form action="{% url 'view_product' candle.id %}" method="get">
-                    {% csrf_token %}
+{#                    {% csrf_token %}#}
                     <button style="background-color: #515151; color: white" class="btn-custom">Виж</button>
                 </form>
 
 
 
-                <form action="{% url 'fast_buy' candle.id %}" method="POST" class="add-to-cart-form">
-                    {% csrf_token %}
+                <form action="{% url 'fast_buy' candle.id %}" method="GET" class="add-to-cart-form">
+{#                    {% csrf_token %}#}
                     <input type="hidden" name="quantity" value="1">
                     <button type="submit" class="btn-custom">КУПИ</button>
                 </form>
