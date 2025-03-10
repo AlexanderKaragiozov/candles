@@ -26,6 +26,14 @@
             box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
         }
 
+
+
+.form-check {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
         .filter-panel h5 {
             font-weight: 600;
             color: #333;
@@ -174,6 +182,43 @@
             background: linear-gradient(90deg, #504c4c 10%, #00cbff 90%);
             color: white;
         }
+/* General checkbox styles */
+input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    border-radius: 5px;
+    border: 2px solid #4CAF50;
+    background-color: #fff;
+    margin-right: 10px;
+    position: relative;
+    appearance: none; /* Disable default browser styles */
+    cursor: pointer;
+    transition: all 0.3s ease; /* Smooth transitions */
+}
+
+/* Checkbox checked state */
+input[type="checkbox"]:checked {
+    background-color: #4CAF50; /* Green background when checked */
+    border-color: #4CAF50; /* Green border when checked */
+}
+
+/* Checkmark styling when the checkbox is checked */
+input[type="checkbox"]:checked::after {
+    content: "✔"; /* Unicode checkmark */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black; /* White checkmark */
+    font-size: 14px; /* Adjust size of checkmark */
+    font-weight: bold;
+}
+
+/* Remove the default focus outline */
+input[type="checkbox"]:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.6); /* Optional shadow for focus */
+}
     </style>
 </head>
 <body>
@@ -197,6 +242,14 @@
                     <option value="low-high">Цена: ниска към висока</option>
                     <option value="high-low">Цена: висока към ниска</option>
                 </select>
+            </div>
+             <div class="col-md-6 mt-3">
+                <div class="form-check" style="margin-top: 10px; display: flex; align-items: center;">
+                    <input style="width: 22px; height: 22px; border-radius: 5px; border: 2px solid #4CAF50; background-color: #fff; margin-right: 10px;"
+                           type="checkbox" id="promoFilter" class="form-check-input">
+                    <label for="promoFilter" style="font-size: 1rem; color: #4CAF50; font-weight: 600;">Покажи с промоция</label>
+                </div>
+
             </div>
         </div>
     </div>
@@ -241,6 +294,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const sortSelect = document.getElementById("sortProducts");
     const priceFilter = document.getElementById("priceFilter");
     const priceValue = document.getElementById("priceValue");
+    const promoFilter = document.getElementById("promoFilter");
 
     let allProducts = Array.from(document.querySelectorAll(".product-item")).map(product => ({
         element: product,
@@ -259,13 +313,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let filteredProducts = allProducts.filter(product => {
             let effectivePrice = product.promotion_price > 0 ? product.promotion_price : product.price;
-            return effectivePrice <= maxPrice;
+            let matchesPrice = effectivePrice <= maxPrice;
+            let matchesPromotion = !promoFilter.checked || product.promotion_price > 0;
+
+            return matchesPrice && matchesPromotion;
         });
 
         filteredProducts.sort((a, b) => {
             let priceA = a.promotion_price > 0 ? a.promotion_price : a.price;
             let priceB = b.promotion_price > 0 ? b.promotion_price : b.price;
-            return sortSelect.value === "low-high" ? priceA - priceB : priceB - priceA;
+
+            if (sortSelect.value === "low-high") return priceA - priceB;
+            if (sortSelect.value === "high-low") return priceB - priceA;
         });
 
         renderProducts(filteredProducts);
@@ -273,6 +332,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     sortSelect.addEventListener("change", filterAndSortProducts);
     priceFilter.addEventListener("input", filterAndSortProducts);
+    promoFilter.addEventListener("change", filterAndSortProducts);
 
     filterAndSortProducts();
 });

@@ -219,11 +219,12 @@ def remove_from_cart(request, candle_id):
 
     return response
 def products(request):
-    products = Candle.objects.all()
+    products = Candle.objects.all().exclude(monthly=True)
+    scents = Candle.objects.distinct().filter(cent__isnull=False)
     for candle in products:
         candle.price = round(candle.price,2)
     print(products)
-    return render(request,'products.html', {'products':products,'MEDIA_URL': settings.MEDIA_URL})
+    return render(request,'products.html', {'products':products,'MEDIA_URL': settings.MEDIA_URL,'scents':scents})
 
 
 def view_product(request,candle_id):
@@ -281,17 +282,13 @@ def place_order(request):
 
         if first_name and last_name and phone and city:
             # Create or get the customer
-            customer, created = Customer.objects.get_or_create(
-                email='',  # Prevent duplicate customers based on email
-                defaults={
-                    "first_name": first_name,
-                    "last_name": last_name,
-                    "phone": phone,
-                    "city": city,
-                    "address": ''
-                }
+            customer = Customer.objects.create(
+                first_name=first_name,
+                last_name=last_name,
+                phone=phone,  # Use these three fields to check for duplicates
+                city=city,
             )
-
+            customer.save()
             cart = request.COOKIES.get("cart")
             cart = json.loads(cart)
             order = ''
@@ -314,7 +311,7 @@ def place_order(request):
                 except Candle.DoesNotExist:
                     print(f"Candle with ID {candle_id} not found.")
             order_url_code= str(order_url_code) + f"{customer.first_name.lower()}x{customer.last_name.lower()}"
-            SPREADSHEET_ROW = [new_order.id,first_name, last_name, '', phone, city, '']
+            SPREADSHEET_ROW = [new_order.id,first_name, last_name, phone, city]
             SPREADSHEET_ROW.append(order)
             SPREADSHEET_ROW.append("НЕ")
             SPREADSHEET_ROW.append('НЕ')

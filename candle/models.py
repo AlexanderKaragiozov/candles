@@ -16,10 +16,10 @@ class Gallery(models.Model):
 class Customer(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    email = models.EmailField(unique=True)  # Ensure unique emails
-    phone = models.CharField(max_length=15, unique=True)  # Ensure unique phone numbers
-    city = models.CharField(max_length=100)
-    address = models.TextField()
+    # email = models.EmailField(unique=True)  # Ensure unique emails
+    phone = models.CharField(max_length=15)  # Ensure unique phone numbers
+    city = models.TextField()
+    # address = models.TextField()
     def __str__(self):
         return f"{self.first_name} {self.last_name}, тел.{self.phone}"
 
@@ -52,7 +52,7 @@ class Candle(models.Model):
         return self.name
 
 def get_default_deadline():
-    return now() + timedelta(hours=24)
+    return now() + timedelta(hours=48)
 class CandleOrder(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     candle = models.ForeignKey(Candle, on_delete=models.CASCADE)
