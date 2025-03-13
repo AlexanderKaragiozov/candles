@@ -58,7 +58,7 @@ src="https://www.facebook.com/tr?id=667508889037580&ev=PageView&noscript=1"
                 <!-- SMALL IMAGES -->
                 {% if candle.image_2 %}
                 	<div class="col-4">
-                    <a href="{{ candle.image_2.url }}" data-bs-toggle="modal" data-bs-target="#imageModal{{ forloop.counter }}">
+                    <a href="{{ candle.image_2.url }}" data-bs-toggle="modal" data-bs-target="#imageModal2">
                         <img src="{{ candle.image_2.url }}" alt="{{ candle.name }}" class="img-fluid small-image">
                     </a>
                 </div>
@@ -66,14 +66,14 @@ src="https://www.facebook.com/tr?id=667508889037580&ev=PageView&noscript=1"
 
                 {% if candle.image_3 %}
                 	<div class="col-4">
-                    <a href="{{ candle.image_3.url }}" data-bs-toggle="modal" data-bs-target="#imageModal{{ forloop.counter }}">
+                    <a href="{{ candle.image_3.url }}" data-bs-toggle="modal" data-bs-target="#imageModal3">
                         <img src="{{ candle.image_3.url }}" alt="{{ candle.name }}" class="img-fluid small-image">
                     </a>
                 </div>
                 {% endif %}
                 {% if candle.image_4 %}
                 	<div class="col-4">
-                    <a href="{{ candle.image_4.url }}" data-bs-toggle="modal" data-bs-target="#imageModal{{ forloop.counter }}">
+                    <a href="{{ candle.image_4.url }}" data-bs-toggle="modal" data-bs-target="#imageModal4">
                         <img src="{{ candle.image_4.url }}" alt="{{ candle.name }}" class="img-fluid small-image">
                     </a>
                 </div>
@@ -156,6 +156,38 @@ src="https://www.facebook.com/tr?id=667508889037580&ev=PageView&noscript=1"
         <div class="modal-content">
             <div class="modal-body p-0">
                 <img src="{{ candle.image.url }}" class="img-fluid rounded">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal for Image 2 -->
+<div class="modal fade" id="imageModal2" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <img src="{{ candle.image_2.url }}" class="img-fluid rounded">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Image 3 -->
+<div class="modal fade" id="imageModal3" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <img src="{{ candle.image_3.url }}" class="img-fluid rounded">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Image 4 -->
+<div class="modal fade" id="imageModal4" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <img src="{{ candle.image_4.url }}" class="img-fluid rounded">
             </div>
         </div>
     </div>
