@@ -161,7 +161,8 @@ src="https://www.facebook.com/tr?id=667508889037580&ev=PageView&noscript=1"
     </div>
 </div>
 <!-- Modal for Image 2 -->
-<div class="modal fade" id="imageModal2" tabindex="-1" aria-hidden="true">
+{% if candle.image_2 %}
+	<div class="modal fade" id="imageModal2" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body p-0">
@@ -170,9 +171,11 @@ src="https://www.facebook.com/tr?id=667508889037580&ev=PageView&noscript=1"
         </div>
     </div>
 </div>
+{% endif %}
 
 <!-- Modal for Image 3 -->
-<div class="modal fade" id="imageModal3" tabindex="-1" aria-hidden="true">
+{% if candle.image_3 %}
+	<div class="modal fade" id="imageModal3" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body p-0">
@@ -181,9 +184,11 @@ src="https://www.facebook.com/tr?id=667508889037580&ev=PageView&noscript=1"
         </div>
     </div>
 </div>
+{% endif %}
 
 <!-- Modal for Image 4 -->
-<div class="modal fade" id="imageModal4" tabindex="-1" aria-hidden="true">
+{% if candle.image_4 %}
+	<div class="modal fade" id="imageModal4" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body p-0">
@@ -192,6 +197,7 @@ src="https://www.facebook.com/tr?id=667508889037580&ev=PageView&noscript=1"
         </div>
     </div>
 </div>
+{% endif %}
 
 
 
