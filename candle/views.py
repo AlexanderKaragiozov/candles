@@ -233,9 +233,19 @@ def view_product(request,candle_id):
 
     return render(request,'product_view.html', {'candle':candle,'MEDIA_URL': settings.MEDIA_URL,'other_candle':other_candle})
 
+import json
+from django.shortcuts import redirect, reverse, get_object_or_404
+from django.contrib import messages
+
 def fast_buy(request, candle_id):
     if request.method == "GET":
-        quantity = int(request.POST.get("quantity", 1))  # Ensure quantity is an integer
+        try:
+            quantity = int(request.GET.get("quantity", 1))  # Get from GET request
+            quantity = max(1, quantity)  # Ensure at least 1
+        except ValueError:
+            messages.error(request, "Невалидно количество")
+            return redirect(reverse("view_product", args=[candle_id]))
+
         print(f"{candle_id} >>>>>>>>> {quantity}")
 
         # Get existing cart data from cookies
@@ -245,11 +255,25 @@ def fast_buy(request, candle_id):
         except json.JSONDecodeError:
             cart = {}
 
-        # Ensure the value is an integer before adding
-        cart[str(candle_id)] = cart.get(str(candle_id), 0) + quantity
+        # Get the current quantity in cart before updating it
+        current_quantity_in_cart = cart.get(str(candle_id), 0)
+
+        # Get candle object
+        candle = get_object_or_404(Candle, pk=candle_id)
+
+        # Calculate total quantity after adding new quantity
+        total_quantity = current_quantity_in_cart + quantity
+
+        # Check if requested total quantity exceeds available stock
+        if total_quantity > candle.quantity:
+            messages.error(request, "Не можете да добавите повече от наличното количество в количката")
+            return redirect(reverse("view_product", args=[candle_id]))
+
+        # Update cart with new quantity
+        cart[str(candle_id)] = total_quantity
 
         # Create response with redirect to cart page
-        response = redirect("cart_view")  # Redirect to cart page
+        response = redirect("cart_view")
 
         # Set the cookie properly
         response.set_cookie(
@@ -260,7 +284,7 @@ def fast_buy(request, candle_id):
             samesite="Lax"
         )
 
-        return response  # Return the redirect response to the cart view
+        return response
 
 
 def place_order(request):
